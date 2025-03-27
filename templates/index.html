@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{{ url_for('static', filename='/favicon.svg') }}"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <title>Sina Dilek</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-text"></div>
+    </nav>
+
+    <div class="intro-screen">
+      <div class="terminal">
+        <div class="terminal-header">
+          <div class="terminal-buttons">
+            <span class="terminal-button close"></span>
+            <span class="terminal-button minimize"></span>
+            <span class="terminal-button maximize"></span>
+          </div>
+          <div class="terminal-title">sina.dilek@portfolio ~</div>
+        </div>
+        <div class="terminal-content"></div>
+      </div>
+    </div>
+    <!-- Rest of your existing content -->
+    <section class="container hidden">
+      <!-- About Me Section -->
+      <div class="about-section">
+        <div class="profile-header">
+          <img
+            class="profile-img"
+            src="/static/img/profileimg.JPEG"
+            alt="Sina Dilek"
+          />
+          <div class="profile-status">
+            <span class="status-badge"> Available for Work</span>
+            <div class="social-links">
+              <a
+                href="https://github.com/Noxire-Hash"
+                class="social-link github"
+                target="_blank"
+              >
+                <i class="fab fa-github"></i>GitHub
+              </a>
+              <a
+                href="https://www.linkedin.com/in/sina-dilek-0b1b3b1b9/"
+                class="social-link linkedin"
+                target="_blank"
+              >
+                <i class="fab fa-linkedin"></i>LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="bio-content">
+          <p>
+            I am a self-taught 20 y.o programmer with a passion for game
+            development and system programming. Currently focusing on expanding
+            my skills in web development and low-level programming.
+          </p>
+          <div class="skills-container">
+            {% for skill in skills %}
+            <div
+              class="skill-tag"
+              data-category="{{ skill.category }}"
+              style="--skill-progress: {{ skill.progress }}%;"
+            >
+              {{ skill.name }}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects Section -->
+      <div class="projects-section">
+        <h2 class="section-title">$Personal Projects</h2>
+        <div class="projects-grid">
+          {% for project in projects %}
+          <div class="project-card">
+            <span class="terminal-cursor">></span>
+            <div class="project-header">
+              <h3 class="project-title">{{ project.name }}</h3>
+              <span class="project-status {{ project.status.lower() }}">{{ project.status }}</span>
+            </div>
+            <div class="project-content">
+              <p class="project-description">{{ project.description }}</p>
+              <div class="project-tech">
+                {% for tech in project.technologies %}
+                <span
+                  class="tech-tag"
+                  data-lang="{{ tech.lower() }}"
+                >
+                  {{ languages[tech.lower()].name }}
+                </span>
+                {% endfor %}
+              </div>
+              {% if project.link != "_blank" %}
+              <a href="{{ project.link }}" class="project-link" target="_blank">
+                View Project <span class="arrow">→</span>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Updates Section -->
+      <div class="updates-section">
+        <h2 class="section-title">$Recent Updates</h2>
+        <div class="updates-container">
+          {% for update in updates %}
+          <div class="update-card">
+            <div class="update-header">
+              <span class="update-date">{{ update.date }}</span>
+              <h3 class="update-title">{{ update.title }}</h3>
+            </div>
+            <p class="update-content">{{ update.content }}</p>
+            <div class="update-tags">
+              {% for tag in update.tags %}
+              <span class="update-tag">#{{ tag }}</span>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </body>
+</html>
