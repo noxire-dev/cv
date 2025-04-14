@@ -2,15 +2,19 @@ import os
 
 from dotenv import load_dotenv
 from flask import Flask, render_template
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 # Configure app using environment variables
-app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-app.config["DEBUG"] = os.getenv("DEBUG", "False").lower() in ("true", "1", "t")
+# Set a default secret key if none is provided in .env
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "your-default-secret-key-here")
+# Force DEBUG to False in production
+app.config["DEBUG"] = False
 
 # Sample data - you can replace with database calls later
 PROJECTS = [
@@ -78,11 +82,9 @@ SKILLS = [
     {"name": "Python", "color": "#3776AB", "category": "language", "progress": 90},
     {"name": "HTML/CSS", "color": "#E34F26", "category": "web", "progress": 85},
     {"name": "Flask", "color": "#3776AB", "category": "framework", "progress": 75},
-    {"name": "Assembly", "color": "#6E4C13",
-        "category": "language", "progress": 50},
+    {"name": "Assembly", "color": "#6E4C13", "category": "language", "progress": 50},
     {"name": "Java", "color": "#007396", "category": "language", "progress": 50},
-    {"name": "JavaScript", "color": "#F7DF1E",
-        "category": "language", "progress": 55},
+    {"name": "JavaScript", "color": "#F7DF1E", "category": "language", "progress": 55},
     {"name": "Git", "color": "#F05032", "category": "tool", "progress": 80},
     {"name": "SQL", "color": "#4479A1", "category": "database", "progress": 70},
 ]
@@ -153,9 +155,6 @@ def home():
     )
 
 
-if __name__ == "__main__":
-    app.run(
-        debug=app.config["DEBUG"],
-        host=os.getenv("HOST", "0.0.0.0"),
-        port=int(os.getenv("PORT", 5000)),
-    )
+# Remove or comment out this if you have it:
+# if __name__ == "__main__":
+#     app.run()

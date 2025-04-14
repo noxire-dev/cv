@@ -1,3 +1,117 @@
+const PROJECTS = [
+    {
+        name: "UzmanParaScraper",
+        status: "Active",
+        description: "Website Scraper for BIST100",
+        technologies: ["Python", "BeautifulSoup4"],
+        link: "https://github.com/Noxire-Hash/UzmanParaScraper",
+    },
+    {
+        name: "Midnight Moon Theme Collection",
+        status: "Active",
+        description: "A vscode extension containing a set of themes themes I developed",
+        technologies: ["Json"],
+        link: "https://github.com/Noxire-Hash/midnight-theme",
+    },
+    {
+        name: "Miles&Miles",
+        status: "On Hold",
+        description: "Flight App for Finding Cheap Flights",
+        technologies: ["Python", "API Integration"],
+        link: "https://github.com/Noxire-Hash/MilesnMiles",
+    },
+    {
+        name: "F1 Simulator/TRPG",
+        status: "On Hold",
+        description: "A text-based simulator for F1 in purpose of turning into a TRPG",
+        technologies: ["Python"],
+        link: "https://github.com/Noxire-Hash/F1-Simulator",
+    },
+    {
+        name: "Zen Design",
+        status: "Completed",
+        description: "A design portfolio for a non-existing company",
+        technologies: ["HTML", "CSS"],
+        link: "https://github.com/Noxire-Hash/Zen-Design",
+    },
+    {
+        name: "SazBoz",
+        status: "Discontinued",
+        description: "A discord bot that can played music and helped with moderation now it is discontinued",
+        technologies: ["JavaScript"],
+        link: "_blank",
+    }
+];
+
+const UPDATES = [
+    {
+        date: "2025-02-23",
+        title: "Started Learning C",
+        content: "I wanted to dive into low-level programming so I started learning C not to be good at it but understand how C++, C# and Rust works. It's hair pulling to implement the functions I am so used to using in high level languages but it's also a lot of fun + loving the simplicity and syntax of C.",
+        tags: ["learning", "C", "low-level"],
+    },
+    {
+        date: "2025-02-30",
+        title: "Portfolio Website Launch",
+        content: "Finally launched my personal portfolio website with a terminal-inspired design. Built with Flask and vanilla JavaScript. Planning to add more projects and features soon.",
+        tags: ["web-dev", "portfolio", "flask"],
+    }
+];
+
+const SKILLS = [
+    {name: "Python", color: "#3776AB", category: "language", progress: 90},
+    {name: "HTML/CSS", color: "#E34F26", category: "web", progress: 85},
+    {name: "Flask", color: "#3776AB", category: "framework", progress: 75},
+    {name: "Assembly", color: "#6E4C13", category: "language", progress: 50},
+    {name: "Java", color: "#007396", category: "language", progress: 50},
+    {name: "JavaScript", color: "#F7DF1E", category: "language", progress: 55},
+    {name: "Git", color: "#F05032", category: "tool", progress: 80},
+    {name: "SQL", color: "#4479A1", category: "database", progress: 70},
+];
+
+const LANGUAGES = {
+    python: {
+        color: "#38B2AC",
+        name: "Python",
+    },
+    javascript: {
+        color: "#ECC94B",
+        name: "JavaScript",
+    },
+    typescript: {
+        color: "#63B3ED",
+        name: "TypeScript",
+    },
+    html: {
+        color: "#F56565",
+        name: "HTML",
+    },
+    css: {
+        color: "#9F7AEA",
+        name: "CSS",
+    },
+    java: {
+        color: "#ED64A6",
+        name: "Java",
+    },
+    beautifulsoup4: {
+        color: "#38B2AC",
+        name: "BeautifulSoup4",
+    },
+    api: {
+        color: "#718096",
+        name: "API Integration",
+    },
+    "api integration": {
+        color: "#718096",
+        name: "API Integration",
+    },
+    json: {
+        color: "#48BB78",
+        name: "JSON",
+    },
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // Add vim command listener to the whole document
     document.addEventListener('keydown', (e) => {
@@ -7,6 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
             showVimPanel();
         }
     });
+
+    // Render projects and updates
+    renderProjects();
+    renderUpdates();
 
     const texts = [
         { text: "$ initiating session..." },
@@ -689,6 +807,55 @@ document.addEventListener('DOMContentLoaded', () => {
             terminalLine.className = 'terminal-line';
             terminalLine.textContent = line;
             terminalContent.insertBefore(terminalLine, terminalContent.lastChild);
+        });
+    }
+
+    function renderProjects() {
+        const projectsGrid = document.getElementById('projects-grid');
+        if (!projectsGrid) return;
+
+        projectsGrid.innerHTML = PROJECTS.map(project => `
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>${project.name}</h3>
+                    <span class="project-status ${project.status.toLowerCase().replace(' ', '-')}">${project.status}</span>
+                </div>
+                <p class="project-description">${project.description}</p>
+                <div class="project-technologies">
+                    ${project.technologies.map(tech => {
+                        const lang = LANGUAGES[tech.toLowerCase()] || { color: '#718096', name: tech };
+                        return `<span class="tech-tag" style="background-color: ${lang.color}">${lang.name}</span>`;
+                    }).join('')}
+                </div>
+                <a href="${project.link}" class="project-link" target="_blank">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
+        `).join('');
+    }
+
+    function renderUpdates() {
+        const updatesContainer = document.getElementById('updates-container');
+        if (!updatesContainer) return;
+
+        updatesContainer.innerHTML = UPDATES.map(update => `
+            <div class="update-card">
+                <div class="update-date">${formatDate(update.date)}</div>
+                <h3 class="update-title">${update.title}</h3>
+                <p class="update-content">${update.content}</p>
+                <div class="update-tags">
+                    ${update.tags.map(tag => `<span class="update-tag">${tag}</span>`).join('')}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         });
     }
 });
