@@ -153,8 +153,3 @@ def home():
         skills=SKILLS,
         languages=LANGUAGES,
     )
-
-
-# Remove or comment out this if you have it:
-# if __name__ == "__main__":
-#     app.run()
