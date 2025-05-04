@@ -621,18 +621,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (e.key !== 'Enter') return;
 
-        const command = input.value.trim().toLowerCase();
+        const fullCommand = input.value.trim();
+        const command = fullCommand.toLowerCase();
         const terminalContent = input.closest('.terminal-content');
 
         // Add command to terminal with white prompt
         const commandLine = document.createElement('div');
         commandLine.className = 'terminal-line';
-        commandLine.textContent = `> ${command}`;
+        commandLine.textContent = `> ${fullCommand}`;
         terminalContent.insertBefore(commandLine, input.parentElement);
 
         // Process command
         let response;
-        switch(command) {
+        switch(command.split(' ')[0]) {
             case 'help':
                 response = [
                     'Available commands:',
@@ -640,7 +641,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     '  clear    - Clear terminal',
                     '  exit     - Exit secret terminal',
                     '  whoami   - Display user info',
-                    '  coffee   - Need a break?',
+                    '  40k      - What is this?',
+                    '  where    - Show location',
                     // Add more commands here
                 ].join('\n');
                 break;
@@ -660,45 +662,55 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             case 'whoami':
                 response = `
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡖⠁⠀⠀⠀⠀⠀⠀⠈⢲⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⣼⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣧⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⣸⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣇⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⣿⣿⡇⠀⢀⣀⣤⣤⣤⣤⣀⡀⠀⢸⣿⣿⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣔⢿⡿⠟⠛⠛⠻⢿⡿⣢⣿⣿⡟⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⣀⣤⣶⣾⣿⣿⣿⣷⣤⣀⡀⢀⣀⣤⣾⣿⣿⣿⣷⣶⣤⡀⠀⠀⠀⠀
-                ⠀⠀⢠⣾⣿⡿⠿⠿⠿⣿⣿⣿⣿⡿⠏⠻⢿⣿⣿⣿⣿⠿⠿⠿⢿⣿⣷⡀⠀⠀
-                ⠀⢠⡿⠋⠁⠀⠀⢸⣿⡇⠉⠻⣿⠇⠀⠀⠸⣿⡿⠋⢰⣿⡇⠀⠀⠈⠙⢿⡄⠀
-                ⠀⡿⠁⠀⠀⠀⠀⠘⣿⣷⡀⠀⠰⣿⣶⣶⣿⡎⠀⢀⣾⣿⠇⠀⠀⠀⠀⠈⢿⠀
-                ⠀⡇⠀⠀⠀⠀⠀⠀⠹⣿⣷⣄⠀⣿⣿⣿⣿⠀⣠⣾⣿⠏⠀⠀⠀⠀⠀⠀⢸⠀
-                ⠀⠁⠀⠀⠀⠀⠀⠀⠀⠈⠻⢿⢇⣿⣿⣿⣿⡸⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠈⠀
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠐⢤⣀⣀⢀⣀⣠⣴⣿⣿⠿⠋⠙⠿⣿⣿⣦⣄⣀⠀⠀⣀⡠⠂⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠈⠉⠛⠛⠛⠛⠉⠀⠀⠀⠀⠀⠈⠉⠛⠛⠛⠛⠋⠁⠀⠀⠀⠀⠀
-
-                User: Sina Dilek
-                Role: Software Developer
-                Status: Accessing secret terminal
-                Location: [REDACTED]
-                Current Project: [CLASSIFIED]
-                Security Level: Maximum
-
-                Note: This user has dangerous levels of curiosity
-                Warning: Prone to late-night coding sessions`;
+    ╭─────────────────────────────╮
+    │                             │
+    │    ╭───────────────╮        │
+    │    │   NOXIRE   │        │
+    │    ╰───────────────╯        │
+    │                             │
+    │    User: Sina Dilek         │
+    │    Role: Software Developer │
+    │    Status: Online           │
+    │    Location: UK             │
+    │    Current Project: Personal│
+    │    Interests: Coding,       │
+    │    Gaming, Music            │
+    │                             │
+    │    Note: Always learning    │
+    │    something new            │
+    ╰─────────────────────────────╯`;
                 break;
-            case 'coffee':
+            case '40k':
                 response = `
-    (  )   (   )  )
-     ) (   )  (  (
-     ( )  (    ) )
-     _____________
-    <_____________> ___
-    |             |/ _ \\
-    |               | | |
-    |               |_| |
-     \_____________/|___/
-
-    Coffee break time!`;
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⠂⠰⣤⣀⠀⠀⢀⣦⣈⠙⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢠⣤⡀⠀⣼⣦⣄⡙⠳⢦⣈⠙⠿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠙⢀⡈⠻⢿⣿⣿⣶⣄⡉⣷⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⣿⣶⣄⡉⠻⠿⠟⠃⢰⠏⢠⣾⣿⣿⣄⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣶⠈⠙⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠻⠆⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣠⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣴⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢀⣾⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⢀⣾⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠛⠛⠛⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`;
+                break;
+            case 'where':
+                if (command === 'where gf') {
+                    response = `
+    ╭─────────────────────────────╮
+    │                             │
+    │    She's in my heart        │
+    │    and always on my mind    │
+    │                             │
+    │    ❤️  ❤️  ❤️  ❤️  ❤️  ❤️  ❤️  │
+    │                             │
+    │    Love you Ro              │
+    ╰─────────────────────────────╯`;
+                } else {
+                    response = 'Usage: where [target]\nTry: where gf';
+                }
                 break;
             default:
                 response = `Command not found: ${command}`;

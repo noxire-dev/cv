@@ -1,8 +1,11 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from werkzeug.middleware.proxy_fix import ProxyFix
+
+# Set TERM environment variable to suppress tput warning
+os.environ["TERM"] = "dumb"
 
 # Load environment variables
 load_dotenv()
@@ -15,6 +18,18 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "your-default-secret-key-here")
 # Force DEBUG to False in production
 app.config["DEBUG"] = False
+
+# Set the static and template folders explicitly with absolute paths
+current_dir = os.path.dirname(os.path.abspath(__file__))
+app.static_folder = os.path.join(current_dir, "static")
+app.template_folder = os.path.join(current_dir, "templates")
+
+
+# Add explicit route for static files
+@app.route("/static/<path:filename>")
+def serve_static(filename):
+    return send_from_directory(app.static_folder, filename)
+
 
 # Sample data - you can replace with database calls later
 PROJECTS = [
@@ -153,3 +168,7 @@ def home():
         skills=SKILLS,
         languages=LANGUAGES,
     )
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
