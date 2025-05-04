@@ -704,12 +704,12 @@ document.addEventListener('DOMContentLoaded', () => {
     │    She's in my heart        │
     │    and always on my mind    │
     │                             │
-    │    ❤️  ❤️  ❤️  ❤️  ❤️  ❤️  ❤️  │
+    │    ❤️  ❤️  ❤️  ❤️  ❤️  ❤️  │
     │                             │
     │    Love you Ro              │
     ╰─────────────────────────────╯`;
                 } else {
-                    response = 'Usage: where [target]\nTry: where gf';
+                    response = 'Usage: where [target]\n';
                 }
                 break;
             default:
