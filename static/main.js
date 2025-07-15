@@ -94,6 +94,14 @@ const LANGUAGES = {
         color: "#ED64A6",
         name: "Java",
     },
+    flask: {
+        color: "#38B2AC",
+        name: "Flask",
+    },
+    sqlite: {
+        color: "#003B57",
+        name: "SQLite",
+    },
     beautifulsoup4: {
         color: "#38B2AC",
         name: "BeautifulSoup4",
@@ -160,8 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     introScreen.style.display = 'none';
                     container.classList.remove('hidden');
                     container.classList.add('fade-in');
-                }, 1000);
-            }, 500);
+                }, 800);
+            }, 400);
             return;
         }
 
@@ -688,7 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ⠀⠀⠀⠀⠀⠀⢠⣤⡀⠀⣼⣦⣄⡙⠳⢦⣈⠙⠿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠙⢀⡈⠻⢿⣿⣿⣶⣄⡉⣷⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⣿⣶⣄⡉⠻⠿⠟⠃⢰⠏⢠⣾⣿⣿⣄⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣶⠈⠙⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠻⠆⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣶⠈⠙⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⣠⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⣴⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀

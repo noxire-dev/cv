@@ -34,11 +34,18 @@ def serve_static(filename):
 # Sample data - you can replace with database calls later
 PROJECTS = [
     {
-        "name": "UzmanParaScraper",
+        "name": "Moji",
         "status": "Active",
-        "description": "Website Scraper for BIST100",
-        "technologies": ["Python", "BeautifulSoup4"],
-        "link": "https://github.com/Noxire-Hash/UzmanParaScraper",
+        "description": "Note taking and todo app with a focus on UI/X design",
+        "technologies": ["Python", "Flask", "SQLite", "HTML", "CSS", "JavaScript"],
+        "link": "https://github.com/Noxire-Hash/moji",
+    },
+    {
+        "name": "LoreKeeper",
+        "status": "Active",
+        "description": "E-Commerce Website for Free Tabletop RPGs",
+        "technologies": ["Python", "Flask", "SQLite", "HTML", "CSS", "JavaScript"],
+        "link": "https://github.com/Noxire-Hash/LoreKeeper",
     },
     {
         "name": "Midnight Moon Theme Collection",
@@ -69,15 +76,30 @@ PROJECTS = [
         "link": "https://github.com/Noxire-Hash/Zen-Design",
     },
     {
-        "name": "SazBoz",
-        "status": "Discontinued",
-        "description": "A discord bot that can played music and helped with moderation now it is discontinued",
-        "technologies": ["JavaScript"],
-        "link": "_blank",
+        "name": "UzmanParaScraper",
+        "status": "Active",
+        "description": "Website Scraper for BIST100 and getting the latest news about them",
+        "technologies": ["Python", "BeautifulSoup4"],
+        "link": "https://github.com/Noxire-Hash/UzmanParaScraper",
     },
 ]
 
 UPDATES = [
+    {
+        "date": "2025-07-15",
+        "title": "Working on Moji",
+        "content": "I'm working on a note taking and todo app with a focus on UI/X design. It's a simple app that I'm developing for my own use but I think it can be useful for others as well. I'm using Flask for the backend and SQLite for the database. I'm also using HTML, CSS and JavaScript for the frontend. I'm using the latest technologies and best practices.",
+        "tags": [
+            "development",
+            "Moji",
+            "Flask",
+            "SQLite",
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Noku",
+        ],
+    },
     {
         "date": "2025-02-23",
         "title": "Started Learning C",
@@ -129,6 +151,14 @@ LANGUAGES = {
     "java": {
         "color": "#ED64A6",  # Pink
         "name": "Java",
+    },
+    "flask": {
+        "color": "#38B2AC",  # Match Python
+        "name": "Flask",
+    },
+    "sqlite": {
+        "color": "#003B57",  # Dark blue
+        "name": "SQLite",
     },
     "beautifulsoup4": {
         "color": "#38B2AC",  # Match Python
