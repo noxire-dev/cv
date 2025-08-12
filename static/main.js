@@ -121,8 +121,33 @@ const LANGUAGES = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Add vim command listener to the whole document
+    // Render projects and updates
+    renderProjects();
+    renderUpdates();
+
+    // Get DOM elements
+    const terminal = document.querySelector('.terminal-content');
+    const container = document.querySelector('.container');
+    const introScreen = document.querySelector('.intro-screen');
+    const navbar = document.querySelector('.navbar');
+
+        // Add enhanced keyboard listeners to the whole document
     document.addEventListener('keydown', (e) => {
+        // Hide main exit hint on any key press (when intro screen is visible)
+        if (!introScreen.classList.contains('hidden') && introScreen.style.display !== 'none') {
+            const mainExitHint = document.querySelector('.intro-screen .terminal-exit-hint');
+            if (mainExitHint && !mainExitHint.classList.contains('hidden')) {
+                mainExitHint.classList.add('hidden');
+            }
+        }
+
+        // ESC key to exit terminal (if intro screen is visible)
+        if (e.key === 'Escape' && !introScreen.classList.contains('hidden') && introScreen.style.display !== 'none') {
+            e.preventDefault();
+            skipIntroAnimation();
+            return;
+        }
+
         // Only trigger if ':' is pressed and no input is focused
         if (e.key === ':' && document.activeElement.tagName !== 'INPUT') {
             e.preventDefault();
@@ -130,9 +155,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Render projects and updates
-    renderProjects();
-    renderUpdates();
+    // Add mobile gesture support for swipe down to exit
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    // Touch events for swipe gesture
+    document.addEventListener('touchstart', (e) => {
+        touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipeGesture();
+    }, { passive: true });
+
+    function handleSwipeGesture() {
+        const swipeDistance = touchEndY - touchStartY;
+        const minSwipeDistance = 100; // Minimum pixels for swipe
+
+        // Check if intro screen is visible and swipe is downward
+        if (swipeDistance > minSwipeDistance &&
+            !introScreen.classList.contains('hidden') &&
+            introScreen.style.display !== 'none') {
+
+            // Add haptic feedback
+            if (navigator.vibrate) {
+                navigator.vibrate(75);
+            }
+
+            skipIntroAnimation();
+        }
+    }
 
     const texts = [
         { text: "$ initiating session..." },
@@ -145,11 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { text: "$ loading dynamic content..." },
         { text: "SINA DILEK >", sticky: true }
     ];
-
-    const terminal = document.querySelector('.terminal-content');
-    const container = document.querySelector('.container');
-    const introScreen = document.querySelector('.intro-screen');
-    const navbar = document.querySelector('.navbar');
 
     let currentLine = 0;
 
@@ -211,9 +259,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500);
     }
 
-    // Add click handler for the close button
+        // Enhanced close button with haptic feedback and visual effects
     const closeButton = document.querySelector('.terminal-button.close');
-    closeButton.addEventListener('click', skipIntroAnimation);
+    const exitHint = document.querySelector('.terminal-exit-hint');
+
+    // Function to hide the hint after user interaction
+    function hideExitHint() {
+        if (exitHint && !exitHint.classList.contains('hidden')) {
+            exitHint.classList.add('hidden');
+        }
+    }
+
+        // Simple, non-jarring click handler
+    closeButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        hideExitHint();
+
+        // Add haptic feedback for mobile devices
+        if (navigator.vibrate) {
+            navigator.vibrate(30); // Shorter, less jarring
+        }
+
+        // Immediate action - no jarring animations
+        skipIntroAnimation();
+    });
+
+    // Simple touch feedback - using passive events to avoid intervention
+    closeButton.addEventListener('touchstart', (e) => {
+        hideExitHint();
+        closeButton.style.opacity = '0.6';
+    }, { passive: true });
+
+    closeButton.addEventListener('touchend', (e) => {
+        closeButton.style.opacity = '';
+    }, { passive: true });
+
+    closeButton.addEventListener('touchcancel', (e) => {
+        closeButton.style.opacity = '';
+    }, { passive: true });
 
     // Start the animation
     setTimeout(addLine, 1000);
@@ -366,7 +451,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="terminal-line">$ accessing secret terminal...</div>
                     <div class="terminal-line">$ authorization required...</div>
                     <div class="terminal-line">$ access granted...</div>
-                    <div class="terminal-line">$ type 'help' for available commands</div>
+                    <div class="terminal-line">$ type 'help' or 'exit' for commands</div>
+                    <div class="terminal-exit-hint">ESC, 'exit', or click ● to exit</div>
                     <div class="terminal-input-wrapper">
                         <span class="prompt">> </span>
                         <input type="text" class="secret-cli-input" autofocus>
@@ -377,11 +463,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.body.appendChild(secretTerminal);
 
-        // Get the input element
+                // Get elements
         const input = secretTerminal.querySelector('.secret-cli-input');
+        const secretCloseBtn = secretTerminal.querySelector('.terminal-button.close');
+        const secretExitHint = secretTerminal.querySelector('.terminal-exit-hint');
 
-        // Add keydown event listener for both commands and vim panel
+        // Function to hide secret terminal hint
+        function hideSecretExitHint() {
+            if (secretExitHint && !secretExitHint.classList.contains('hidden')) {
+                secretExitHint.classList.add('hidden');
+            }
+        }
+
+                // Simple secret terminal close button
+        secretCloseBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            hideSecretExitHint();
+
+            // Add haptic feedback
+            if (navigator.vibrate) {
+                navigator.vibrate(30);
+            }
+
+            // Immediate action
+            exitSecretTerminal();
+        });
+
+        // Simple touch feedback for secret terminal - using passive events
+        secretCloseBtn.addEventListener('touchstart', (e) => {
+            hideSecretExitHint();
+            secretCloseBtn.style.opacity = '0.6';
+        }, { passive: true });
+
+        secretCloseBtn.addEventListener('touchend', (e) => {
+            secretCloseBtn.style.opacity = '';
+        }, { passive: true });
+
+        secretCloseBtn.addEventListener('touchcancel', (e) => {
+            secretCloseBtn.style.opacity = '';
+        }, { passive: true });
+
+        // Function to exit secret terminal
+        function exitSecretTerminal() {
+            const mainContainer = document.querySelector('.container');
+            const navbar = document.querySelector('.navbar');
+
+            secretTerminal.remove();
+            mainContainer.style.display = '';
+            navbar.style.display = '';
+        }
+
+                // Add keydown event listener for both commands and vim panel
         input.addEventListener('keydown', (e) => {
+            // Hide hint on any key press
+            hideSecretExitHint();
+
+            // ESC key to exit secret terminal
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                if (navigator.vibrate) {
+                    navigator.vibrate(50);
+                }
+                exitSecretTerminal();
+                return;
+            }
+
             // Check for vim command panel trigger
             if (e.key === ':') {
                 e.preventDefault();
@@ -660,6 +808,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.value = '';
                 return;
             case 'exit':
+                // Add haptic feedback
+                if (navigator.vibrate) {
+                    navigator.vibrate(50);
+                }
+
                 const secretTerminal = document.querySelector('.secret-mode');
                 const mainContainer = document.querySelector('.container');
                 const navbar = document.querySelector('.navbar');

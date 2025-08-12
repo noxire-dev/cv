@@ -13,9 +13,7 @@ load_dotenv()
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
-# Configure app using environment variables
-# Set a default secret key if none is provided in .env
-app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "your-default-secret-key-here")
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "If you are a fool this will be your secret key")
 # Force DEBUG to False in production
 app.config["DEBUG"] = False
 
@@ -38,50 +36,57 @@ PROJECTS = [
         "status": "Active",
         "description": "Note taking and todo app with a focus on UI/X design",
         "technologies": ["Python", "Flask", "SQLite", "HTML", "CSS", "JavaScript"],
-        "link": "https://github.com/Noxire-Hash/moji",
+        "link": "https://github.com/noxire-dev/moji",
     },
     {
         "name": "LoreKeeper",
         "status": "Active",
         "description": "E-Commerce Website for Free Tabletop RPGs",
         "technologies": ["Python", "Flask", "SQLite", "HTML", "CSS", "JavaScript"],
-        "link": "https://github.com/Noxire-Hash/LoreKeeper",
+        "link": "https://github.com/noxire-dev/LoreKeeper",
     },
     {
         "name": "Midnight Moon Theme Collection",
         "status": "Active",
         "description": "A vscode extension containing a set of themes themes I developed",
         "technologies": ["Json"],
-        "link": "https://github.com/Noxire-Hash/midnight-theme",
+        "link": "https://github.com/noxire-dev/midnight-theme",
     },
     {
-        "name": "Miles&Miles",
-        "status": "On Hold",
-        "description": "Flight App for Finding Cheap Flights",
-        "technologies": ["Python", "API Integration"],
-        "link": "https://github.com/Noxire-Hash/MilesnMiles",
-    },
-    {
-        "name": "F1 Simulator/TRPG",
-        "status": "On Hold",
-        "description": "A text-based simulator for F1 in purpose of turning into a TRPG",
-        "technologies": ["Python"],
-        "link": "https://github.com/Noxire-Hash/F1-Simulator",
-    },
-    {
-        "name": "Zen Design",
-        "status": "Completed",
-        "description": "A design portfolio for a non-existing company",
-        "technologies": ["HTML", "CSS"],
-        "link": "https://github.com/Noxire-Hash/Zen-Design",
+        "name": "sinadilek.com",
+        "status": "Active",
+        "description": "Code for my personal website, the one you are seeing right now !",
+        "technologies": ["Python", "Flask", "HTML", "CSS", "JavaScript"],
+        "link": "https://github.com/noxire-dev/cv",
     },
     {
         "name": "UzmanParaScraper",
         "status": "Active",
         "description": "Website Scraper for BIST100 and getting the latest news about them",
         "technologies": ["Python", "BeautifulSoup4"],
-        "link": "https://github.com/Noxire-Hash/UzmanParaScraper",
+        "link": "https://github.com/noxire-dev/UzmanParaScraper",
     },
+    {
+        "name": "Miles&Miles",
+        "status": "On Hold",
+        "description": "Flight App for Finding Cheap Flights",
+        "technologies": ["Python", "API Integration"],
+        "link": "https://github.com/noxire-dev/MilesnMiles",
+    },
+    {
+        "name": "F1 Simulator/TRPG",
+        "status": "On Hold",
+        "description": "A text-based simulator for F1 in purpose of turning into a TRPG",
+        "technologies": ["Python"],
+        "link": "https://github.com/noxire-dev/F1-Simulator",
+    },
+    {
+        "name": "Zen Design",
+        "status": "Completed",
+        "description": "A design portfolio for a non-existing company",
+        "technologies": ["HTML", "CSS"],
+        "link": "https://github.com/noxire-dev/Zen-Design",
+    }
 ]
 
 UPDATES = [
