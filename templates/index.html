@@ -11,26 +11,27 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="{{ url_for('static', filename='favicon.svg') }}"
+      href="{{ url_for('static', filename='img/favicon.svg') }}"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
       type="text/css"
       href="{{ url_for('static', filename='style.css') }}"
-    />
-    <title>Sina Dilek</title>
-  </head>
+      />
+      <title>Sina Dilek</title>
+    </head>
   <body>
-    <nav class="navbar">
-      <div class="navbar-text"></div>
-    </nav>
-
+    <!-- Intro terminal -->
     <div class="intro-screen">
       <div class="terminal">
         <div class="terminal-header">
           <div class="terminal-buttons">
-            <span class="terminal-button close"></span>
+            <span
+              class="terminal-button close"
+              role="button"
+              aria-label="Close"
+            ></span>
             <span class="terminal-button minimize"></span>
             <span class="terminal-button maximize"></span>
           </div>
@@ -41,59 +42,62 @@
         </div>
       </div>
     </div>
-    <!-- Rest of your existing content -->
+
+    <!-- Main content -->
     <section class="container hidden">
-      <!-- About Me Section -->
       <div class="about-section">
-        <div class="profile-header">
-          <img
-            class="profile-img"
-            src="{{ url_for('static', filename='img/profileimg3.jpeg') }}"
-            alt="Sina Dilek"
-          />
-          <div class="profile-status">
-            <span class="status-badge">Available for Work</span>
+        <!-- Hero card with bold layered effect -->
+        <div class="hero-card is-bold">
+          <span class="hero-layer-3" aria-hidden="true"></span>
+          <span class="hero-layer-4" aria-hidden="true"></span>
+          <span class="hero-layer-5" aria-hidden="true"></span>
+
+          <header class="hero">
+            <h1 class="hero-title">
+              Sina Dilek<span class="hero-cursor"></span>
+            </h1>
+
+            <p class="hero-tagline">
+              I like building small tools and learning systems.
+            </p>
+
+            <p class="hero-currently">
+              BSc Computer Science @ University of Essex
+            </p>
+
+            <div class="hero-badges">
+              <span class="badge badge-availability">Open to opportunities</span>
+              {% for b in language_badges %}
+              <span class="badge">{{ b }}</span>
+              {% endfor %}
+            </div>
+
             <div class="social-links">
               <a
                 href="https://github.com/noxire-dev"
                 class="social-link github"
                 target="_blank"
+                rel="noopener"
+                >GitHub</a
               >
-                <i class="fab fa-github"></i>GitHub
-              </a>
               <a
                 href="https://www.linkedin.com/in/sina-dilek-0b1b3b1b9/"
                 class="social-link linkedin"
                 target="_blank"
+                rel="noopener"
+                >LinkedIn</a
               >
-                <i class="fab fa-linkedin"></i>LinkedIn
-              </a>
             </div>
-          </div>
+          </header>
         </div>
+
         <div class="bio-content">
           <p>
-            I'm a self-taught 21-year-old programmer with a strong passion for UI/UX design, game development, and system programming.
-            Currently, I'm developing a game in Godot and expanding my skills in web development.
-            I'm studying Computer Science at <strong>@University of Essex</strong>, where I recently completed my first year with First Class Honours
-              — earning over 95% in every module and achieving one of the strongest academic records in the university's history.
-            I'm also working on <strong>@Noku</strong>, where I'am developing user centric applications. Working on <strong>@Moji</strong>.
+            CS student who builds for the joy of it.
           </p>
-          <div class="skills-container">
-            {% for skill in skills %}
-            <div
-              class="skill-tag"
-              data-category="{{ skill.category }}"
-              style="--skill-progress: {{ skill.progress }}%;"
-            >
-              {{ skill.name }}
-            </div>
-            {% endfor %}
-          </div>
         </div>
       </div>
 
-      <!-- Projects Section -->
       <div class="projects-section">
         <h2 class="section-title">$Personal Projects</h2>
         <div class="projects-grid">
@@ -102,17 +106,18 @@
             <span class="terminal-cursor">></span>
             <div class="project-header">
               <h3 class="project-title">{{ project.name }}</h3>
-              <span class="project-status {{ project.status.lower() }}">{{ project.status }}</span>
+              <span
+                class="project-status {{ project.status|lower|replace(' ', '-') }}"
+                >{{ project.status }}</span
+              >
             </div>
             <div class="project-content">
               <p class="project-description">{{ project.description }}</p>
               <div class="project-tech">
                 {% for tech in project.technologies %}
-                <span
-                  class="tech-tag"
-                  data-lang="{{ tech.lower() }}"
-                >
-                  {{ languages[tech.lower()].name }}
+                <span class="tech-tag" data-lang="{{ tech.lower() }}">
+                  {{ languages[tech.lower()].name if languages.get(tech.lower())
+                  else tech }}
                 </span>
                 {% endfor %}
               </div>
@@ -127,7 +132,6 @@
         </div>
       </div>
 
-      <!-- Updates Section -->
       <div class="updates-section">
         <h2 class="section-title">$Recent Updates</h2>
         <div class="updates-container">
@@ -148,6 +152,10 @@
         </div>
       </div>
     </section>
-    <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='main.js') }}"
+    ></script>
   </body>
 </html>

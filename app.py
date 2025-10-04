@@ -4,45 +4,51 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, send_from_directory
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-# Set TERM environment variable to suppress tput warning
 os.environ["TERM"] = "dumb"
 
-# Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
-app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "If you are a fool this will be your secret key")
-# Force DEBUG to False in production
+app.config["SECRET_KEY"] = os.getenv(
+    "SECRET_KEY",
+    "If you are a fool this will be your secret key",
+)
 app.config["DEBUG"] = False
 
-# Set the static and template folders explicitly with absolute paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 app.static_folder = os.path.join(current_dir, "static")
 app.template_folder = os.path.join(current_dir, "templates")
 
 
-# Add explicit route for static files
 @app.route("/static/<path:filename>")
 def serve_static(filename):
     return send_from_directory(app.static_folder, filename)
 
 
-# Sample data - you can replace with database calls later
 PROJECTS = [
+
+    {
+        "name": "GoSH",
+        "status": "Active",
+        "description": "GoSH is a toy shell written in Go for learning purposes.",
+        "technologies": ["Go"],
+        "link": "https://github.com/noxire-dev/GoSH",
+    },
+
     {
         "name": "Moji",
         "status": "Active",
         "description": "Note taking and todo app with a focus on UI/X design",
-        "technologies": ["Python", "Flask", "SQLite", "HTML", "CSS", "JavaScript"],
+        "technologies": ["Python", "Flask", "JavaScript"],
         "link": "https://github.com/noxire-dev/moji",
     },
     {
         "name": "LoreKeeper",
         "status": "Active",
         "description": "E-Commerce Website for Free Tabletop RPGs",
-        "technologies": ["Python", "Flask", "SQLite", "HTML", "CSS", "JavaScript"],
+        "technologies": ["Python", "JavaScript"],
         "link": "https://github.com/noxire-dev/LoreKeeper",
     },
     {
@@ -53,17 +59,10 @@ PROJECTS = [
         "link": "https://github.com/noxire-dev/midnight-theme",
     },
     {
-        "name": "sinadilek.com",
-        "status": "Active",
-        "description": "Code for my personal website, the one you are seeing right now !",
-        "technologies": ["Python", "Flask", "HTML", "CSS", "JavaScript"],
-        "link": "https://github.com/noxire-dev/cv",
-    },
-    {
         "name": "UzmanParaScraper",
         "status": "Active",
         "description": "Website Scraper for BIST100 and getting the latest news about them",
-        "technologies": ["Python", "BeautifulSoup4"],
+        "technologies": ["Python", "Flask", "BeautifulSoup4"],
         "link": "https://github.com/noxire-dev/UzmanParaScraper",
     },
     {
@@ -79,17 +78,16 @@ PROJECTS = [
         "description": "A text-based simulator for F1 in purpose of turning into a TRPG",
         "technologies": ["Python"],
         "link": "https://github.com/noxire-dev/F1-Simulator",
-    },
-    {
-        "name": "Zen Design",
-        "status": "Completed",
-        "description": "A design portfolio for a non-existing company",
-        "technologies": ["HTML", "CSS"],
-        "link": "https://github.com/noxire-dev/Zen-Design",
     }
 ]
 
 UPDATES = [
+    {
+        "date": "2025-08-28",
+        "title": "Finished my first year at university",
+        "content": "I finished my first year at the University of Essex and couldn’t be happier with the results — I achieved 96/100 overall and a First Class. I’m proud of the work I put in, and grateful for the support and guidance I had along the way. Really excited to carry this momentum into my second year!",
+        "tags": ["development", "university", "first year", "results"],
+    },
     {
         "date": "2025-07-15",
         "title": "Working on Moji",
@@ -110,87 +108,74 @@ UPDATES = [
         "title": "Started Learning C",
         "content": "I wanted to dive into low-level programming so I started learning C not to be good at it but understand how C++, C# and Rust works. It's hair pulling to implement the functions I am so used to using in high level languages but it's also a lot of fun + loving the simplicity and syntax of C.",
         "tags": ["learning", "C", "low-level"],
-    },
-    {
-        "date": "2025-02-30",
-        "title": "Portfolio Website Launch",
-        "content": "Finally launched my personal portfolio website with a terminal-inspired design. Built with Flask and vanilla JavaScript. Planning to add more projects and features soon.",
-        "tags": ["web-dev", "portfolio", "flask"],
-    },
+    }
 ]
 
-# Add this to your existing variables in app.py
-SKILLS = [
-    {"name": "Python", "color": "#3776AB", "category": "language", "progress": 90},
-    {"name": "HTML/CSS", "color": "#E34F26", "category": "web", "progress": 85},
-    {"name": "Flask", "color": "#3776AB", "category": "framework", "progress": 75},
-    {"name": "Assembly", "color": "#6E4C13", "category": "language", "progress": 50},
-    {"name": "Java", "color": "#007396", "category": "language", "progress": 50},
-    {"name": "JavaScript", "color": "#F7DF1E", "category": "language", "progress": 55},
-    {"name": "Git", "color": "#F05032", "category": "tool", "progress": 80},
-    {"name": "SQL", "color": "#4479A1", "category": "database", "progress": 70},
-]
+# Language badges only (no tools)
+LANGUAGE_BADGES = ["Python", "Go", "Java", "JavaScript"]
 
-# Add this to your existing variables in app.py
 LANGUAGES = {
+    "golang": {
+        "color": "#00ADD8",
+        "name": "Golang",
+    },
     "python": {
-        "color": "#38B2AC",  # Teal
+        "color": "#38B2AC",
         "name": "Python",
     },
     "javascript": {
-        "color": "#ECC94B",  # Yellow
+        "color": "#ECC94B",
         "name": "JavaScript",
     },
     "typescript": {
-        "color": "#63B3ED",  # Blue
+        "color": "#63B3ED",
         "name": "TypeScript",
     },
     "html": {
-        "color": "#F56565",  # Red
+        "color": "#F56565",
         "name": "HTML",
     },
     "css": {
-        "color": "#9F7AEA",  # Purple
+        "color": "#9F7AEA",
         "name": "CSS",
     },
     "java": {
-        "color": "#ED64A6",  # Pink
+        "color": "#ED64A6",
         "name": "Java",
     },
     "flask": {
-        "color": "#38B2AC",  # Match Python
+        "color": "#38B2AC",
         "name": "Flask",
     },
     "sqlite": {
-        "color": "#003B57",  # Dark blue
+        "color": "#003B57",
         "name": "SQLite",
     },
     "beautifulsoup4": {
-        "color": "#38B2AC",  # Match Python
+        "color": "#38B2AC",
         "name": "BeautifulSoup4",
     },
     "api": {
-        "color": "#718096",  # Gray
+        "color": "#718096",
         "name": "API Integration",
     },
     "api integration": {
-        "color": "#718096",  # Gray
+        "color": "#718096",
         "name": "API Integration",
     },
     "json": {
-        "color": "#48BB78",  # Green
+        "color": "#48BB78",
         "name": "JSON",
     },
 }
 
-# Update theme colors for a more professional look
 root = {
-    "terminal_bg": "#000000",  # Pure black
-    "terminal_text": "#ffffff",  # Pure white
-    "terminal_accent": "#ffffff",  # White accent
-    "terminal_header": "#111111",  # Slightly lighter than bg
-    "terminal_border": "#222222",  # Subtle border
-    "terminal_dim": "rgba(255, 255, 255, 0.1)",  # Transparent white
+    "terminal_bg": "#000000",
+    "terminal_text": "#ffffff",
+    "terminal_accent": "#ffffff",
+    "terminal_header": "#111111",
+    "terminal_border": "#222222",
+    "terminal_dim": "rgba(255, 255, 255, 0.1)",
 }
 
 
@@ -200,8 +185,8 @@ def home():
         "index.html",
         projects=PROJECTS,
         updates=UPDATES,
-        skills=SKILLS,
         languages=LANGUAGES,
+        language_badges=LANGUAGE_BADGES,
     )
 
 
