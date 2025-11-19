@@ -77,11 +77,17 @@ PROJECTS = [
         "status": "On Hold",
         "description": "A text-based simulator for F1 in purpose of turning into a TRPG",
         "technologies": ["Python"],
-        "link": "https://github.com/noxire-dev/F1-Simulator",
+        "link": "https://github.com/noxire-dev/F1TTRPG",
     }
 ]
 
 UPDATES = [
+    {
+        "date": "2025-11-19",
+        "title": "A fresh start with V2",
+        "content": "When I first started this project 3 years ago, I used Flask and some weird design choices. Knowing only Python at the time, Flask felt magical. I've since learned a lot and I think it's time to give it a fresh start. I want to add more complex features like blog post capabilities. I will be using Next.js, React, and Supabase. It will be a great learning experience and hopefully make my website even better!",
+        "tags": ["development", "cv", "resume", "blog", "python", "flask", "typescript", "next.js", "supabase"],
+    },
     {
         "date": "2025-08-28",
         "title": "Finished my first year at university",
