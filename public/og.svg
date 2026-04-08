@@ -1,0 +1,73 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap');
+  </style>
+
+  <defs>
+    <radialGradient id="glow" cx="0.7" cy="0.4" r="0.5">
+      <stop offset="0%" stop-color="#957FB8" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0D0D12" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="nameClip">
+      <rect x="0" y="90" width="1200" height="440"/>
+    </clipPath>
+  </defs>
+
+  <!-- Base -->
+  <rect width="1200" height="630" fill="#0D0D12"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Grid — structural, not decorative -->
+  <line x1="72" y1="0" x2="72" y2="630" stroke="#957FB8" stroke-width="0.5" opacity="0.06"/>
+  <line x1="1128" y1="0" x2="1128" y2="630" stroke="#957FB8" stroke-width="0.5" opacity="0.06"/>
+  <line x1="0" y1="90" x2="1200" y2="90" stroke="#2A2A3A" stroke-width="0.5"/>
+  <line x1="0" y1="540" x2="1200" y2="540" stroke="#2A2A3A" stroke-width="0.5"/>
+
+  <!-- Top bar -->
+  <rect width="1200" height="4" fill="#957FB8"/>
+
+  <!-- Bottom bar -->
+  <rect y="626" width="1200" height="4" fill="#957FB8"/>
+
+  <!-- Header row — terminal style -->
+  <text x="82" y="70" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#957FB8" letter-spacing="3" opacity="0.7">SD://PORTFOLIO</text>
+  <line x1="270" y1="62" x2="1030" y2="62" stroke="#2A2A3A" stroke-width="0.5"/>
+  <circle cx="1060" cy="62" r="3.5" fill="#957FB8" opacity="0.7"/>
+  <text x="1072" y="67" font-family="'JetBrains Mono', monospace" font-size="10" fill="#957FB8" letter-spacing="2" opacity="0.45">ONLINE</text>
+
+  <!-- S logo — proud, not hidden -->
+  <g transform="translate(920, 310) scale(9) translate(-32.1, -32.3)" opacity="0.1">
+    <path d="M15.8087 20.5061L23.5303 28.2277C23.2663 28.7557 23.3135 29.4816 23.6717 30.4056C24.0489 31.3107 24.6994 32.3761 25.6233 33.6017C26.585 34.8274 27.7824 36.1567 29.2154 37.5898C30.6297 39.004 31.7799 40.0788 32.6661 40.8142C33.5901 41.5496 34.3255 41.9833 34.8723 42.1153C35.438 42.2284 35.9094 42.0964 36.2865 41.7193C36.6448 41.361 36.6448 40.8142 36.2865 40.0788C35.9471 39.3246 35.1174 38.2121 33.7975 36.7413C32.4776 35.2705 30.5542 33.2717 28.0275 30.745C26.1419 28.8594 24.5957 27.1435 23.3889 25.5973C22.2198 24.0511 21.3807 22.6463 20.8716 21.3829C20.4002 20.1195 20.2493 18.9882 20.419 17.9888C20.6076 16.9706 21.1167 16.0466 21.9464 15.2169C23.3795 13.7839 25.0388 13.0862 26.9244 13.1239C28.8478 13.1616 31.0162 13.9347 33.4298 15.4432C35.8811 16.9517 38.587 19.1862 41.5474 22.1466C45.8843 26.4835 48.5619 30.4244 49.5801 33.9694C50.6361 37.5144 49.9855 40.4654 47.6285 42.8224L40.3029 35.4968C40.8309 34.7802 40.7177 33.7243 39.9635 32.3289C39.2281 30.9147 37.8704 29.2177 35.8905 27.2378C33.9295 25.2767 32.355 23.9285 31.1671 23.1931C29.998 22.4766 29.14 22.3917 28.5932 22.9385C28.3104 23.2214 28.2161 23.5797 28.3104 24.0133C28.4046 24.447 28.7158 25.041 29.2437 25.7953C29.8094 26.5495 30.6674 27.5395 31.8176 28.7651C32.9678 29.9908 34.4575 31.5181 36.2865 33.3472C38.3041 35.3648 39.9163 37.1844 41.1231 38.806C42.3488 40.4088 43.1973 41.8419 43.6687 43.1052C44.159 44.3874 44.291 45.5377 44.0647 46.5559C43.8573 47.5553 43.3387 48.4698 42.5091 49.2995C41.076 50.7326 39.4544 51.4491 37.6442 51.4491C35.834 51.4491 33.7315 50.6854 31.3368 49.1581C28.942 47.6307 26.1607 45.2831 22.9929 42.1153C21.2016 40.3239 19.6554 38.5703 18.3543 36.8544C17.0721 35.1573 16.0444 33.5263 15.2713 31.9612C14.5171 30.3773 14.0268 28.8877 13.8005 27.4923C13.5931 26.0781 13.6402 24.7864 13.9419 23.6174C14.2814 22.4483 14.9036 21.4112 15.8087 20.5061Z" fill="#957FB8"/>
+  </g>
+
+  <!-- ═══ NAME — Syne 800, massive, stacked ═══ -->
+
+  <!-- Accent block before name -->
+  <rect x="72" y="130" width="6" height="100" fill="#957FB8"/>
+
+  <!-- SINA — with slight overlap into grid -->
+  <text x="96" y="248" font-family="'Syne', sans-serif" font-size="160" font-weight="800" fill="#E8E0ED" letter-spacing="-4">SINA</text>
+
+  <!-- DILEK — offset, heavier visual weight -->
+  <text x="96" y="400" font-family="'Syne', sans-serif" font-size="160" font-weight="800" fill="#E8E0ED" letter-spacing="-4">DILEK</text>
+
+
+  <!-- ═══ INFO COLUMN — right side, mono ═══ -->
+
+  <!-- Role — stacked, tight -->
+  <text x="1118" y="134" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#957FB8" letter-spacing="3" text-anchor="end">CTO</text>
+  <text x="1118" y="152" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="400" fill="#957FB8" letter-spacing="3" text-anchor="end" opacity="0.6">&amp;</text>
+  <text x="1118" y="172" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#957FB8" letter-spacing="3" text-anchor="end">SOFTWARE</text>
+  <text x="1118" y="192" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#957FB8" letter-spacing="3" text-anchor="end">DEVELOPER</text>
+
+  <!-- ═══ BOTTOM SECTION ═══ -->
+
+  <!-- Tagline -->
+  <text x="82" y="480" font-family="'JetBrains Mono', monospace" font-size="14" fill="#ADA8BC" letter-spacing="0.3">Backend systems · Data pipelines · Developer tooling</text>
+
+
+  <!-- Footer -->
+  <text x="82" y="595" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" fill="#E8E0ED" letter-spacing="3" opacity="0.4">sinadilek.com</text>
+
+  <text x="1118" y="595" font-family="'JetBrains Mono', monospace" font-size="11" fill="#7B7494" letter-spacing="2" text-anchor="end" opacity="0.25">COLCHESTER.UK // 2026</text>
+</svg>

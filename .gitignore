@@ -1,7 +1,32 @@
-w.txt
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment
 .env
-__pycache__/
-*.pyc
-.DS_Store
-venv/
+.env.local
+.env.*.local
+
+# IDE
+.idea/
 .vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Legacy python venv
+_legacy_python/
+
+# Vercel
+.vercel/
+
+# TypeScript
+tsconfig.tsbuildinfo
