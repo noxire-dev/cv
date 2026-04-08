@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import {
     BG,
     BRIGHT,
@@ -399,11 +399,12 @@ function ProjectPage({ projectId, goHome }: { projectId: string; goHome: () => v
 
 // ── Projects list page ──
 
-function ProjectsListPage({ navigate, setSelectedProject }: { navigate: (v: View) => void; setSelectedProject: (id: string) => void }) {
+function ProjectsListPage({ navigate, goHome }: { navigate: (v: View, opts?: { projectId?: string; postId?: string }) => void; goHome: () => void }) {
   const { accent, accentSoft } = useTheme()
   return (
     <div className="pt-14 min-h-screen font-mono" style={{ background: BG }}>
       <div className="max-w-[1100px] mx-auto px-4 md:px-8 py-10">
+        <BackToHome onClick={goHome} />
         <div className="flex items-center gap-3 mb-10">
           <span className="text-[12px] tracking-[0.18em] font-bold" style={{ color: accent }}>PROJECTS</span>
           <div className="flex-1 h-px" style={{ background: EDGE }} />
@@ -415,7 +416,7 @@ function ProjectsListPage({ navigate, setSelectedProject }: { navigate: (v: View
             <motion.button key={project.id}
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.06 }}
-              onClick={() => { setSelectedProject(project.id); navigate('project') }}
+              onClick={() => navigate('project', { projectId: project.id })}
               className="group text-left border transition-colors"
               style={{ borderColor: EDGE, background: PANEL }}
               onMouseEnter={e => e.currentTarget.style.borderColor = `${accent}60`}
@@ -461,11 +462,12 @@ function ProjectsListPage({ navigate, setSelectedProject }: { navigate: (v: View
 
 // ── Blog list page ──
 
-function BlogListPage({ navigate, setSelectedPost }: { navigate: (v: View) => void; setSelectedPost: (s: string) => void }) {
+function BlogListPage({ navigate, goHome }: { navigate: (v: View, opts?: { projectId?: string; postId?: string }) => void; goHome: () => void }) {
   const { accent, accentSoft } = useTheme()
   return (
     <div className="pt-14 min-h-screen font-mono" style={{ background: BG }}>
       <div className="max-w-[900px] mx-auto px-4 md:px-8 py-10">
+        <BackToHome onClick={goHome} />
         <div className="flex items-center gap-3 mb-10">
           <span className="text-[12px] tracking-[0.18em] font-bold" style={{ color: accent }}>LOG</span>
           <div className="flex-1 h-px" style={{ background: EDGE }} />
@@ -474,19 +476,24 @@ function BlogListPage({ navigate, setSelectedPost }: { navigate: (v: View) => vo
         <div className="space-y-3">
           {blogPosts.map((post, i) => (
             <motion.button key={post.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.08 }}
-              onClick={() => { setSelectedPost(post.id); navigate('blog-post') }}
+              onClick={() => navigate('blog-post', { postId: post.id })}
               className="group w-full text-left border transition-colors" style={{ borderColor: EDGE, background: PANEL }}
               onMouseEnter={e => e.currentTarget.style.borderColor = `${accent}60`}
               onMouseLeave={e => e.currentTarget.style.borderColor = EDGE}>
-              <div className="p-5 flex gap-4">
-                <span className="text-[12px] mt-1 flex-shrink-0 tabular-nums" style={{ color: DIM }}>{post.date}</span>
+              <div className="p-4 md:p-5 flex flex-col md:flex-row gap-2 md:gap-4">
+                <span className="text-[12px] flex-shrink-0 tabular-nums" style={{ color: DIM }}>{post.date}</span>
                 <div className="flex-1 min-w-0">
                   <h2 className="text-sm font-bold font-sans mb-1 transition-colors" style={{ color: BRIGHT }}
                     onMouseEnter={e => e.currentTarget.style.color = accent}
                     onMouseLeave={e => e.currentTarget.style.color = BRIGHT}>{post.title}</h2>
                   <p className="text-[13px]" style={{ color: MID }}>{post.excerpt}</p>
+                  <div className="flex flex-wrap gap-1 mt-2 md:hidden">
+                    {post.tags.map(t => (
+                      <span key={t} className="text-[11px] px-1.5 py-0.5" style={{ background: `${accent}20`, color: accentSoft }}>{t}</span>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex items-center gap-1 flex-shrink-0">
+                <div className="hidden md:flex items-center gap-1 flex-shrink-0">
                   {post.tags.map(t => (
                     <span key={t} className="text-[11px] px-1.5 py-0.5" style={{ background: `${accent}20`, color: accentSoft }}>{t}</span>
                   ))}
@@ -510,7 +517,7 @@ function BlogPostPage({ postId, goHome }: { postId: string; goHome: () => void }
       <div className="max-w-[680px] mx-auto px-4 md:px-8 py-10">
         <BackToHome onClick={goHome} />
         <motion.article initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
             <span className="text-[12px] tabular-nums" style={{ color: DIM }}>{post.date}</span>
             <span style={{ color: DIM }}>·</span>
             <span className="text-[12px]" style={{ color: DIM }}>{post.readTime}</span>
@@ -585,9 +592,12 @@ function HeroSection({ navigate }: { navigate: (v: View) => void }) {
     <section className="min-h-screen flex flex-col justify-center px-4 md:px-8 pt-14">
       <div className="max-w-[1400px] mx-auto w-full">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
-          className="flex items-center gap-4 mb-10 text-[12px]" style={{ color: DIM }}>
-          <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: accent }} />
-          <span>SYS_READY</span><span>·</span><span>COLCHESTER.UK</span><span>·</span>
+          className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-10 text-[12px]" style={{ color: DIM }}>
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: accent }} />
+            <span>SYS_READY</span>
+          </div>
+          <span>·</span><span>COLCHESTER.UK</span><span>·</span>
           <span style={{ color: accent }}>SEEKING_2026_INTERNSHIPS</span>
         </motion.div>
 
@@ -655,25 +665,84 @@ function HeroSection({ navigate }: { navigate: (v: View) => void }) {
   )
 }
 
+// ── URL routing helpers ──
+
+function viewToPath(v: View, projectId?: string, postId?: string): string {
+  switch (v) {
+    case 'projects': return '/projects'
+    case 'project': return `/project/${projectId}`
+    case 'blog': return '/blog'
+    case 'blog-post': return `/blog/${postId}`
+    case 'experience': return '/experience'
+    default: return '/'
+  }
+}
+
+function parseURL(pathname: string): { view: View; projectId?: string; postId?: string } {
+  const parts = pathname.split('/').filter(Boolean)
+  if (parts[0] === 'projects') return { view: 'projects' }
+  if (parts[0] === 'project' && parts[1]) return { view: 'project', projectId: parts[1] }
+  if (parts[0] === 'blog' && parts[1]) return { view: 'blog-post', postId: parts[1] }
+  if (parts[0] === 'blog') return { view: 'blog' }
+  if (parts[0] === 'experience') return { view: 'experience' }
+  return { view: 'home' }
+}
+
+const INITIAL_ROUTE = parseURL(window.location.pathname)
+
 // ── MAIN ──
 
 export default function Design49() {
   const [accent, setAccent] = useState(LAVENDER)
   const accentSoft = deriveAccentSoft(accent)
 
-  const [view, setView] = useState<View>('home')
-  const [selectedProject, setSelectedProject] = useState('gosh')
-  const [selectedPost, setSelectedPost] = useState('v2-rebuild')
+  const [view, setView] = useState<View>(INITIAL_ROUTE.view)
+  const [selectedProject, setSelectedProject] = useState(INITIAL_ROUTE.projectId || 'gosh')
+  const [selectedPost, setSelectedPost] = useState(INITIAL_ROUTE.postId || 'v2-rebuild')
   const [mouseGrid, setMouseGrid] = useState({ col: 0, row: 0 })
   const { scrollYProgress } = useScroll()
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
 
-  const navigate = useCallback((v: View) => {
+  const isPopRef = useRef(false)
+
+  const navigate = useCallback((v: View, opts?: { projectId?: string; postId?: string }) => {
+    if (opts?.projectId) setSelectedProject(opts.projectId)
+    if (opts?.postId) setSelectedPost(opts.postId)
     setView(v)
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
-  }, [])
+    if (!isPopRef.current) {
+      const pid = opts?.projectId ?? selectedProject
+      const bid = opts?.postId ?? selectedPost
+      const path = viewToPath(v, pid, bid)
+      window.history.pushState({ view: v, projectId: pid, postId: bid }, '', path)
+    }
+    isPopRef.current = false
+  }, [selectedProject, selectedPost])
 
   const goHome = useCallback(() => navigate('home'), [navigate])
+
+  // Sync browser back/forward with view state
+  useEffect(() => {
+    // Stamp initial history entry with state so popstate can restore it
+    window.history.replaceState(
+      { view: INITIAL_ROUTE.view, projectId: INITIAL_ROUTE.projectId, postId: INITIAL_ROUTE.postId },
+      '',
+      window.location.pathname,
+    )
+
+    const onPopState = (e: PopStateEvent) => {
+      const target = e.state?.view as View | undefined
+      if (target) {
+        isPopRef.current = true
+        setView(target)
+        if (e.state?.projectId) setSelectedProject(e.state.projectId)
+        if (e.state?.postId) setSelectedPost(e.state.postId)
+        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+      }
+    }
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
 
   useEffect(() => {
     const h = (e: MouseEvent) => setMouseGrid({ col: Math.floor(e.clientX / (window.innerWidth / GRID_COLS)), row: Math.floor(e.clientY / GRID_ROW_H) })
@@ -814,12 +883,12 @@ export default function Design49() {
                   </button>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {projects.slice(0, 3).map((project, i) => (
                     <motion.button key={project.id}
                       initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.08 }} viewport={{ once: true }}
-                      onClick={() => { setSelectedProject(project.id); navigate('project') }}
+                      onClick={() => navigate('project', { projectId: project.id })}
                       className="group text-left border transition-colors"
                       style={{ borderColor: EDGE, background: PANEL }}
                       onMouseEnter={e => e.currentTarget.style.borderColor = `${accent}60`}
@@ -870,22 +939,24 @@ export default function Design49() {
                     <motion.button key={post.id}
                       initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.08 }} viewport={{ once: true }}
-                      onClick={() => { setSelectedPost(post.id); navigate('blog-post') }}
+                      onClick={() => navigate('blog-post', { postId: post.id })}
                       className="group w-full text-left border transition-colors" style={{ borderColor: EDGE, background: PANEL }}
                       onMouseEnter={e => e.currentTarget.style.borderColor = `${accent}50`}
                       onMouseLeave={e => e.currentTarget.style.borderColor = EDGE}>
-                      <div className="p-4 flex items-center gap-4">
-                        <span className="text-[12px] tabular-nums flex-shrink-0" style={{ color: DIM }}>{post.date}</span>
-                        <h3 className="text-sm font-bold font-sans flex-1 truncate transition-colors group-hover:!text-[var(--accent)]" style={{ color: BRIGHT }}>
-                          {post.title}
-                        </h3>
+                      <div className="p-3 md:p-4 flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
+                        <div className="flex items-center gap-3 md:contents">
+                          <span className="text-[12px] tabular-nums flex-shrink-0" style={{ color: DIM }}>{post.date}</span>
+                          <h3 className="text-sm font-bold font-sans flex-1 truncate transition-colors group-hover:!text-[var(--accent)]" style={{ color: BRIGHT }}>
+                            {post.title}
+                          </h3>
+                          <span className="text-sm flex-shrink-0 transition-transform group-hover:translate-x-1 md:order-last" style={{ color: DIM }}>→</span>
+                        </div>
                         <div className="flex items-center gap-1.5 flex-shrink-0">
                           {post.tags.map(t => (
                             <span key={t} className="text-[10px] px-1.5 py-0.5" style={{ background: `${accent}20`, color: accentSoft }}>{t}</span>
                           ))}
+                          <span className="text-[12px] flex-shrink-0 hidden md:inline" style={{ color: DIM }}>{post.readTime}</span>
                         </div>
-                        <span className="text-[12px] flex-shrink-0" style={{ color: DIM }}>{post.readTime}</span>
-                        <span className="text-sm flex-shrink-0 transition-transform group-hover:translate-x-1" style={{ color: DIM }}>→</span>
                       </div>
                     </motion.button>
                   ))}
@@ -957,7 +1028,7 @@ export default function Design49() {
         {/* ═══ PROJECTS LIST ═══ */}
         {view === 'projects' && (
           <motion.div key="projects" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <ProjectsListPage navigate={navigate} setSelectedProject={setSelectedProject} />
+            <ProjectsListPage navigate={navigate} goHome={goHome} />
           </motion.div>
         )}
 
@@ -971,7 +1042,7 @@ export default function Design49() {
         {/* ═══ BLOG LIST ═══ */}
         {view === 'blog' && (
           <motion.div key="blog" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <BlogListPage navigate={navigate} setSelectedPost={setSelectedPost} />
+            <BlogListPage navigate={navigate} goHome={goHome} />
           </motion.div>
         )}
 
