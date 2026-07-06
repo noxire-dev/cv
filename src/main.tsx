@@ -4,11 +4,12 @@ import './index.css'
 import Design49 from './pages/Design49'
 import Design50 from './pages/Design50'
 import Design51 from './pages/Design51'
+import Design52 from './pages/Design52'
 
-// Temporary prototype switcher: ?d=49|50|51, Ctrl+Shift+1/2/3.
+// Temporary prototype switcher: ?d=49|50|51|52, Ctrl+Shift+1/2/3/4.
 // Remove (restoring plain <Design49 />) once a winner ships.
-const DESIGNS: Record<string, React.ComponentType> = { '49': Design49, '50': Design50, '51': Design51 }
-const KEY_MAP: Record<string, string> = { Digit1: '49', Digit2: '50', Digit3: '51' }
+const DESIGNS: Record<string, React.ComponentType> = { '49': Design49, '50': Design50, '51': Design51, '52': Design52 }
+const KEY_MAP: Record<string, string> = { Digit1: '49', Digit2: '50', Digit3: '51', Digit4: '52' }
 
 function DesignSwitcher() {
   const param = new URLSearchParams(window.location.search).get('d')
