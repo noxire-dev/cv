@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { projects } from './design49Data'
+import { contactLinks, projects } from './design49Data'
 
 // ── Design 52: ZEN BRUTALISM v3 ──────────────────────────────────────────────
 // Dark-only. Industrial brutalism × Japanese minimalism (Ma).
@@ -341,6 +341,65 @@ function Work() {
   )
 }
 
+function Contact() {
+  const links = contactLinks.filter((c) => c.label !== 'EMAIL')
+  return (
+    <section className="zb52-contact" id="contact">
+      <div className="zb52-contact-inner">
+        <header className="zb52-contact-head zb-reveal">
+          <span className="kick">
+            <span className="jp">連絡</span>CONTACT
+          </span>
+          <h2 className="big">
+            LET&apos;S BUILD
+            <br />
+            <em>SOMETHING</em>.
+          </h2>
+          <p className="sub">
+            Open to 2026 internships, freelance, and collaboration — the fastest way
+            to reach me is a direct email.
+          </p>
+        </header>
+
+        <a className="zb52-mailcta zb-reveal" href="mailto:hi@sinadilek.com" data-cursor="active">
+          <span className="l">
+            <span className="jp">メール</span>EMAIL
+          </span>
+          <span className="addr">hi@sinadilek.com</span>
+          <span className="arw">→</span>
+        </a>
+
+        <ul className="zb52-links zb-reveal">
+          {links.map((c, i) => (
+            <li key={c.label}>
+              <a
+                href={c.href}
+                target={c.href.startsWith('mailto') ? undefined : '_blank'}
+                rel="noreferrer"
+                data-cursor="active"
+              >
+                <span className="k">
+                  {String(i + 1).padStart(2, '0')} / {c.label}
+                </span>
+                <span className="v">{c.value}</span>
+                <span className="arw">↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <footer className="zb52-footer zb-reveal">
+          <span className="c">© 2026 SINA DILEK</span>
+          <span className="loc">ESSEX, UK · GMT+0 · BUILT BY HAND</span>
+          <a className="totop" href="#top" data-cursor="active">
+            <span className="ar">↑</span> BACK TO TOP
+          </a>
+        </footer>
+      </div>
+    </section>
+  )
+}
+
 export default function Design52() {
   const rootRef = useRef<HTMLDivElement>(null)
   const cursorRef = useRawCursor(rootRef)
@@ -379,6 +438,7 @@ export default function Design52() {
       <Hero clock={clock} />
       <About />
       <Work />
+      <Contact />
     </div>
   )
 }
@@ -410,6 +470,15 @@ const CSS = `
 }
 .zb52 *, .zb52 *::before, .zb52 *::after { box-sizing: border-box; }
 .zb52 ::selection { background: var(--zb-accent); color: var(--zb-ink); }
+
+/* highlighter-pen emphasis — a fluorescent marker swipe behind the words */
+.zb52 em {
+  font-style: normal; color: var(--zb-paper); position: relative;
+  background-image: linear-gradient(101deg, transparent 0.4%, var(--zb-accent) 1.8%, var(--zb-accent) 98.2%, transparent 99.6%);
+  background-repeat: no-repeat; background-size: 100% 64%; background-position: 0 82%;
+  padding: 0 0.14em; margin: 0 -0.03em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
 
 /* concrete noise */
 .zb52-noise {
@@ -519,7 +588,7 @@ const CSS = `
 .zb52-name .dot { -webkit-text-stroke: 0; color: var(--zb-accent); font-weight: 800; }
 
 .zb52-bio { max-width: 46ch; margin: clamp(28px, 4vh, 44px) 0 0; font-size: clamp(0.95rem, 1.05vw, 1.12rem); line-height: 1.65; color: var(--zb-grey); }
-.zb52-bio em { color: var(--zb-paper); font-style: normal; font-weight: 600; }
+.zb52-bio em { font-weight: 600; }
 
 .zb52-cta { display: flex; align-items: center; gap: clamp(20px, 3vw, 40px); margin-top: clamp(30px, 4.5vh, 48px); flex-wrap: wrap; }
 .zb52-cta .btn {
@@ -588,7 +657,6 @@ const CSS = `
 .facts dt { font-family: var(--zb-mono); font-size: 10px; letter-spacing: 0.16em; color: var(--zb-grey-dim); }
 .facts dd { margin: 0; font-family: var(--zb-mono); font-size: 11.5px; color: var(--zb-paper); text-align: right; }
 .zb52-about-body .lead { margin: 0 0 22px; font-family: var(--zb-display); font-weight: 500; font-size: clamp(1.3rem, 2.3vw, 2rem); line-height: 1.3; letter-spacing: -0.01em; color: var(--zb-paper); }
-.zb52-about-body .lead em, .zb52-about-body p em { font-style: normal; color: var(--zb-accent); }
 .zb52-about-body p { margin: 0 0 22px; font-size: clamp(0.98rem, 1.05vw, 1.12rem); line-height: 1.72; color: var(--zb-grey); max-width: 62ch; }
 .zb52-now { margin-top: clamp(28px, 5vh, 50px); border-top: 2px solid var(--zb-line); }
 .zb52-now .now-h { display: inline-flex; align-items: center; gap: 10px; margin: 20px 0 4px; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.24em; color: var(--zb-grey); }
@@ -632,6 +700,41 @@ const CSS = `
 .rmeta .rarw { font-size: 17px; color: var(--zb-grey-dim); transition: transform var(--snap), color var(--snap); }
 .zb52-reg-row a:hover .rarw { transform: translate(3px, -3px); color: var(--zb-accent); }
 
+/* ── CONTACT / FOOTER ──────────────────────────────────────── */
+.zb52-contact { position: relative; z-index: 1; padding: clamp(70px, 13vh, 170px) clamp(14px, 1.6vw, 24px) clamp(24px, 3vw, 44px); }
+.zb52-contact-inner { position: relative; max-width: 1440px; margin: 0 auto; border-top: 1px solid var(--zb-line); padding: clamp(40px, 7vh, 96px) clamp(12px, 3vw, 60px) 0; }
+.zb52-contact-head { max-width: 940px; margin-bottom: clamp(40px, 7vh, 72px); }
+.zb52-contact-head .kick { display: inline-flex; align-items: center; gap: 12px; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.26em; color: var(--zb-grey); margin-bottom: 26px; }
+.zb52-contact-head .kick .jp { color: var(--zb-accent); letter-spacing: 0.12em; font-size: 13px; }
+.zb52-contact-head .big { margin: 0; font-family: var(--zb-display); font-weight: 800; font-size: clamp(2.8rem, 9vw, 7.6rem); line-height: 0.86; letter-spacing: -0.035em; text-transform: uppercase; }
+.zb52-contact-head .big em { padding: 0 0.1em; background-size: 100% 62%; }
+.zb52-contact-head .sub { margin: clamp(24px, 3.5vh, 36px) 0 0; max-width: 52ch; font-size: clamp(1rem, 1.15vw, 1.2rem); line-height: 1.65; color: var(--zb-grey); }
+
+.zb52-mailcta { display: flex; align-items: center; gap: clamp(16px, 3vw, 40px); padding: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 44px); margin-bottom: clamp(40px, 6vh, 64px); text-decoration: none; background: var(--zb-ink-2); border: 2px solid var(--zb-line); box-shadow: 6px 6px 0 0 rgba(0,0,0,0.4); transition: transform var(--snap), box-shadow var(--snap), border-color var(--snap), background var(--snap); }
+.zb52-mailcta:hover { transform: translate(-5px, -5px); box-shadow: 12px 12px 0 0 var(--zb-accent); border-color: var(--zb-accent); background: var(--zb-ink-3); }
+.zb52-mailcta .l { display: inline-flex; align-items: center; gap: 9px; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--zb-grey); white-space: nowrap; }
+.zb52-mailcta .l .jp { color: var(--zb-accent); font-size: 12px; }
+.zb52-mailcta .addr { flex: 1; font-family: var(--zb-display); font-weight: 800; font-size: clamp(1.4rem, 4.4vw, 3.3rem); letter-spacing: -0.02em; color: var(--zb-paper); word-break: break-word; }
+.zb52-mailcta .arw { font-size: clamp(20px, 2.4vw, 30px); color: var(--zb-grey-dim); transition: transform var(--snap), color var(--snap); }
+.zb52-mailcta:hover .arw { transform: translateX(6px); color: var(--zb-accent); }
+
+.zb52-links { list-style: none; margin: 0 0 clamp(48px, 8vh, 84px); padding: 0; border-top: 2px solid var(--zb-line-2); }
+.zb52-links li { border-bottom: 2px solid var(--zb-line); }
+.zb52-links a { position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: clamp(16px, 3vw, 40px); padding: clamp(18px, 2.4vw, 30px) clamp(10px, 2vw, 22px); text-decoration: none; transition: padding var(--snap), background var(--snap); }
+.zb52-links a::before { content: ''; position: absolute; left: 0; top: -2px; bottom: -2px; width: 3px; background: var(--zb-accent); transform: scaleY(0); transition: transform var(--snap); }
+.zb52-links a:hover { background: var(--zb-ink-2); padding-left: clamp(18px, 2.6vw, 34px); }
+.zb52-links a:hover::before { transform: scaleY(1); }
+.zb52-links .k { font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--zb-grey-dim); }
+.zb52-links .v { font-family: var(--zb-display); font-weight: 700; font-size: clamp(1.2rem, 2.2vw, 1.8rem); letter-spacing: -0.01em; color: var(--zb-paper); transition: color var(--snap); }
+.zb52-links a:hover .v { color: var(--zb-accent); }
+.zb52-links .arw { justify-self: end; font-size: 16px; color: var(--zb-grey-dim); transition: transform var(--snap), color var(--snap); }
+.zb52-links a:hover .arw { transform: translate(3px, -3px); color: var(--zb-accent); }
+
+.zb52-footer { display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; padding: clamp(24px, 3vw, 34px) 0; border-top: 1px solid var(--zb-line); font-family: var(--zb-mono); font-size: 10.5px; letter-spacing: 0.18em; color: var(--zb-grey-dim); }
+.zb52-footer .totop { color: var(--zb-grey); text-decoration: none; transition: color var(--snap); }
+.zb52-footer .totop:hover { color: var(--zb-accent); }
+.zb52-footer .totop .ar { color: var(--zb-accent); }
+
 /* entrance / reveal */
 .zb-in { opacity: 0; transform: translateY(14px); animation: zb-rise 0.62s cubic-bezier(0.2, 0, 0, 1) forwards; }
 .zb-reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.2,0,0,1), transform 0.6s cubic-bezier(0.2,0,0,1); }
@@ -657,6 +760,9 @@ const CSS = `
   .zb52-meta { font-size: 10px; }
   .zb52-meta-r { width: 100%; justify-content: space-between; }
   .zb52-accents { padding: 7px 10px; gap: 7px; }
+  .zb52-mailcta { flex-wrap: wrap; gap: 14px; }
+  .zb52-links a { grid-template-columns: 1fr auto; }
+  .zb52-links .k { grid-column: 1 / -1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .zb-in, .zb-reveal { animation: none; opacity: 1; transform: none; transition: none; }
