@@ -125,12 +125,12 @@ function StampTransition({ active }: { active: boolean }) {
 
 // ── Bilingual section label (kanji / EN) ──
 
-function BilingualLabel({ k, accent }: { k: keyof typeof LABELS; accent: string }) {
+function BilingualLabel({ k, accent, active }: { k: keyof typeof LABELS; accent: string; active?: boolean }) {
   const l = LABELS[k]
   return (
     <span className="inline-flex items-baseline gap-2">
       <span className="font-jp text-[11px] font-medium" style={{ color: accent }}>{l.jp}</span>
-      <span className="font-mono text-[11px] tracking-[0.25em]" style={{ color: ZB.inkDim }}>{l.en}</span>
+      <span className="font-mono text-[11px] tracking-[0.25em]" style={{ color: active ? ZB.ink : ZB.inkDim }}>{l.en}</span>
     </span>
   )
 }
@@ -312,7 +312,7 @@ function Nav({ currentView, navigate }: { currentView: View; navigate: (v: View)
             const isActive = currentView === item.view || item.matchAlso?.includes(currentView)
             return (
               <button key={item.view} onClick={() => navigate(item.view)} className="tracking-wider">
-                <BilingualLabel k={item.k} accent={isActive ? accent : ZB.inkMid} />
+                <BilingualLabel k={item.k} accent={isActive ? accent : ZB.inkMid} active={isActive} />
               </button>
             )
           })}
@@ -590,7 +590,7 @@ function HeroSection({ navigate }: { navigate: (v: View) => void }) {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1, ease: MECH_EASE }}
           className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-10 text-[12px]" style={{ color: DIM }}>
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 animate-pulse" style={{ background: accent }} />
+            <div className="w-1.5 h-1.5 animate-pulse" style={{ background: MID }} />
             <span>SYS_READY</span>
           </div>
           <span>·</span><span>COLCHESTER.UK</span><span>·</span>
@@ -640,7 +640,10 @@ function HeroSection({ navigate }: { navigate: (v: View) => void }) {
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, ease: MECH_EASE }}
           className="flex flex-wrap gap-3 text-[13px]">
           <button onClick={() => navigate('projects')}
-            className="px-5 py-2 font-bold tracking-wider" style={{ background: accent, color: BG }}>
+            className="px-5 py-2 font-bold tracking-wider border-2 transition-colors"
+            style={{ borderColor: ZB.edgeHi, color: BRIGHT, background: 'transparent' }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = accent; e.currentTarget.style.color = accent }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = ZB.edgeHi; e.currentTarget.style.color = BRIGHT }}>
             VIEW_WORK
           </button>
           <a href="/Sina_Dilek_CV.pdf" download className="px-5 py-2 font-bold tracking-wider border-2 transition-colors"
@@ -798,7 +801,7 @@ export default function Design50() {
       <AnimatePresence mode="wait">
         {/* ═══ HOME ═══ */}
         {view === 'home' && (
-          <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35, ease: MECH_EASE }}>
 
             <HeroSection navigate={navigate} />
             <Divider />
@@ -1044,35 +1047,35 @@ export default function Design50() {
 
         {/* ═══ PROJECTS LIST ═══ */}
         {view === 'projects' && (
-          <motion.div key="projects" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <motion.div key="projects" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35, ease: MECH_EASE }}>
             <ProjectsListPage navigate={navigate} goHome={goHome} />
           </motion.div>
         )}
 
         {/* ═══ PROJECT DETAIL ═══ */}
         {view === 'project' && (
-          <motion.div key="project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <motion.div key="project" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35, ease: MECH_EASE }}>
             <ProjectPage projectId={selectedProject} goHome={goHome} />
           </motion.div>
         )}
 
         {/* ═══ BLOG LIST ═══ */}
         {view === 'blog' && (
-          <motion.div key="blog" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <motion.div key="blog" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35, ease: MECH_EASE }}>
             <BlogListPage navigate={navigate} goHome={goHome} />
           </motion.div>
         )}
 
         {/* ═══ BLOG POST ═══ */}
         {view === 'blog-post' && (
-          <motion.div key="bp" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <motion.div key="bp" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35, ease: MECH_EASE }}>
             <BlogPostPage postId={selectedPost} goHome={goHome} />
           </motion.div>
         )}
 
         {/* ═══ EXPERIENCE ═══ */}
         {view === 'experience' && (
-          <motion.div key="exp" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+          <motion.div key="exp" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35, ease: MECH_EASE }}>
             <ExperiencePage job={experience[0]} goHome={goHome} />
           </motion.div>
         )}
