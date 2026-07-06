@@ -197,7 +197,7 @@ function Hero({ clock }: { clock: string }) {
         </div>
 
         <footer className="zb52-foot zb-in" style={{ animationDelay: '.5s' }}>
-          <a className="scroll" href="#work" data-cursor="active">
+          <a className="scroll" href="#about" data-cursor="active">
             <span className="ar">↓</span>&nbsp;&nbsp;SCROLL&nbsp;TO&nbsp;ENTER
           </a>
           <span className="sig">
@@ -209,61 +209,133 @@ function Hero({ clock }: { clock: string }) {
   )
 }
 
-// Scattered, asymmetric placement — each project rides a different column band.
-const BANDS = ['b1', 'b2', 'b3', 'b4', 'b5']
+const ROLES = [
+  {
+    y: '2026',
+    role: 'Software Engineer Intern',
+    org: 'Cloudflare · Foundation Engineering',
+    now: true,
+  },
+  { y: '2025—', role: 'Chief Technology Officer', org: 'Price Lantern · Pre-seed AI', now: false },
+  { y: '2024—', role: 'BSc Computer Science', org: 'University of Essex', now: false },
+]
+
+function About() {
+  return (
+    <section className="zb52-about" id="about">
+      <div className="zb52-about-inner">
+        <header className="zb52-sec-head zb-reveal">
+          <span className="kick">
+            <span className="jp">私</span>ABOUT
+          </span>
+          <h2 className="ttl">
+            ABOUT<span className="ct">/ 01</span>
+          </h2>
+        </header>
+
+        <div className="zb52-about-grid">
+          <aside className="zb52-about-side zb-reveal">
+            <div className="portrait">
+              <span className="ph">SD</span>
+              <span className="pcap">SINA&nbsp;DILEK</span>
+            </div>
+            <dl className="facts">
+              <div>
+                <dt>LOCATION</dt>
+                <dd>Essex, UK · GMT+0</dd>
+              </div>
+              <div>
+                <dt>STUDY</dt>
+                <dd>BSc Computer Science</dd>
+              </div>
+              <div>
+                <dt>YEAR 1</dt>
+                <dd>96 / 100 · First Class</dd>
+              </div>
+            </dl>
+          </aside>
+
+          <div className="zb52-about-body zb-reveal">
+            <p className="lead">
+              Second-year Computer Science student at the University of Essex —
+              currently interning at <em>Cloudflare</em> on the Foundation Engineering
+              team, and CTO at <em>Price Lantern</em>.
+            </p>
+            <p>
+              I care about systems that hold up under real load: backends, data
+              pipelines, and the tooling that makes shipping them faster. I finished
+              first year at 96/100 with First Class Honours — but the work I&apos;m
+              proudest of lives outside the syllabus: a privacy-first chat engine, a
+              shell written in Go, a B2B email platform. I learn by building things end
+              to end, then sharpening them.
+            </p>
+
+            <div className="zb52-now">
+              <span className="now-h">
+                <span className="jp">現在</span>CURRENTLY
+              </span>
+              <ul>
+                {ROLES.map((r) => (
+                  <li key={r.role}>
+                    <span className="y">{r.y}</span>
+                    <span className="role">
+                      <b>{r.role}</b>
+                      <span>{r.org}</span>
+                    </span>
+                    {r.now && <span className="badge">NOW</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 function Work() {
   return (
     <section className="zb52-work" id="work">
       <div className="zb52-work-inner">
-        <header className="zb52-work-head zb-reveal">
+        <header className="zb52-sec-head zb-reveal">
           <span className="kick">
             <span className="jp">仕事</span>SELECTED&nbsp;WORK
           </span>
           <h2 className="ttl">
             WORK<span className="ct">/ {String(projects.length).padStart(2, '0')}</span>
           </h2>
-          <span className="note">
-            Things I&apos;ve designed, built, and shipped. Hover a plate.
-          </span>
+          <span className="note">Things I&apos;ve designed, built, and shipped.</span>
         </header>
 
-        <div className="zb52-work-list">
+        <ol className="zb52-reg">
           {projects.map((p, idx) => (
-            <div key={p.id} className="zb52-work-row">
-              <a
-                className={`zb52-card zb-reveal ${BANDS[idx % BANDS.length]}`}
-                href={p.link}
-                target="_blank"
-                rel="noreferrer"
-                data-cursor="active"
-              >
-                <div className="c-top">
-                  <span className="idx">P/{String(idx + 1).padStart(2, '0')}</span>
-                  <span className="glyph" aria-hidden>
-                    {p.glyph}
+            <li key={p.id} className="zb52-reg-row zb-reveal">
+              <a href={p.link} target="_blank" rel="noreferrer" data-cursor="active">
+                <span className="rn">{String(idx + 1).padStart(2, '0')}</span>
+                <span className="rmain">
+                  <span className="rhead">
+                    <span className="rname">{p.name}</span>
+                    <span className="rglyph" aria-hidden>
+                      {p.glyph}
+                    </span>
                   </span>
-                  <span className={`stat s-${p.status.toLowerCase()}`}>{p.status}</span>
-                </div>
-
-                <h3 className="c-name">{p.name}</h3>
-                <p className="c-brief">{p.brief}</p>
-
-                <div className="c-foot">
-                  <ul className="tags">
+                  <span className="rbrief">{p.brief}</span>
+                  <ul className="rtags">
                     {p.stack.map((s) => (
                       <li key={s}>{s}</li>
                     ))}
                   </ul>
-                  <span className="c-year">
-                    {p.year}
-                    <span className="arw">→</span>
-                  </span>
-                </div>
+                </span>
+                <span className="rmeta">
+                  <span className={`stat s-${p.status.toLowerCase()}`}>{p.status}</span>
+                  <span className="ryear">{p.year}</span>
+                  <span className="rarw">↗</span>
+                </span>
               </a>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   )
@@ -305,6 +377,7 @@ export default function Design52() {
       <AccentToggle accentId={accentId} setAccentId={setAccentId} />
 
       <Hero clock={clock} />
+      <About />
       <Work />
     </div>
   )
@@ -489,49 +562,75 @@ const CSS = `
 .zb52-foot .scroll:hover { color: var(--zb-accent); }
 .zb52-foot .scroll .ar { display: inline-block; color: var(--zb-accent); animation: zb-bob 1.9s var(--snap) infinite; }
 
-/* ── SELECTED WORK ─────────────────────────────────────────── */
-.zb52-work { position: relative; z-index: 1; padding: clamp(60px, 12vh, 160px) clamp(14px, 1.6vw, 24px); }
-.zb52-work-inner {
-  position: relative; max-width: 1440px; margin: 0 auto;
-  border-top: 1px solid var(--zb-line); padding: clamp(40px, 7vh, 96px) clamp(12px, 3vw, 60px) 0;
-}
-.zb52-work-head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 20px 40px; margin-bottom: clamp(48px, 9vh, 110px); }
-.zb52-work-head .kick { grid-column: 1; display: inline-flex; align-items: center; gap: 12px; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.26em; color: var(--zb-grey); }
-.zb52-work-head .kick .jp { color: var(--zb-accent); letter-spacing: 0.12em; font-size: 12px; }
-.zb52-work-head .ttl { grid-column: 1; grid-row: 2; margin: 10px 0 0; font-family: var(--zb-display); font-weight: 800; font-size: clamp(2.8rem, 8vw, 7rem); line-height: 0.85; letter-spacing: -0.03em; text-transform: uppercase; }
-.zb52-work-head .ttl .ct { font-size: 0.24em; letter-spacing: 0.1em; color: var(--zb-accent); vertical-align: super; margin-left: 14px; -webkit-text-stroke: 0; }
-.zb52-work-head .note { grid-column: 2; grid-row: 2; align-self: end; max-width: 30ch; text-align: right; font-size: 0.92rem; line-height: 1.6; color: var(--zb-grey); }
+/* ── SHARED SECTION HEADER ─────────────────────────────────── */
+.zb52-sec-head { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 18px 40px; margin-bottom: clamp(44px, 8vh, 100px); }
+.zb52-sec-head .kick { grid-column: 1; display: inline-flex; align-items: center; gap: 12px; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.26em; color: var(--zb-grey); }
+.zb52-sec-head .kick .jp { color: var(--zb-accent); letter-spacing: 0.12em; font-size: 13px; }
+.zb52-sec-head .ttl { grid-column: 1; grid-row: 2; margin: 10px 0 0; font-family: var(--zb-display); font-weight: 800; font-size: clamp(2.6rem, 7.5vw, 6.4rem); line-height: 0.85; letter-spacing: -0.03em; text-transform: uppercase; }
+.zb52-sec-head .ttl .ct { font-size: 0.22em; letter-spacing: 0.1em; color: var(--zb-accent); vertical-align: super; margin-left: 14px; -webkit-text-stroke: 0; }
+.zb52-sec-head .note { grid-column: 2; grid-row: 2; align-self: end; max-width: 30ch; text-align: right; font-size: 0.92rem; line-height: 1.6; color: var(--zb-grey); }
 
-.zb52-work-list { display: flex; flex-direction: column; gap: clamp(30px, 5vh, 64px); }
-.zb52-work-row { display: grid; grid-template-columns: repeat(12, 1fr); }
-/* scattered column bands */
-.zb52-work-row:nth-child(1) .zb52-card { grid-column: 1 / 8; }
-.zb52-work-row:nth-child(2) .zb52-card { grid-column: 6 / 13; }
-.zb52-work-row:nth-child(3) .zb52-card { grid-column: 3 / 10; }
-.zb52-work-row:nth-child(4) .zb52-card { grid-column: 7 / 13; }
-.zb52-work-row:nth-child(5) .zb52-card { grid-column: 1 / 7; }
-
-.zb52-card {
-  position: relative; display: flex; flex-direction: column; gap: 18px;
-  padding: clamp(24px, 2.6vw, 40px); text-decoration: none;
-  background: var(--zb-ink-2); border: 2px solid var(--zb-line);
-  box-shadow: 5px 5px 0 0 rgba(0,0,0,0.4);
-  transition: transform var(--snap), box-shadow var(--snap), border-color var(--snap), background var(--snap);
+/* ── ABOUT ─────────────────────────────────────────────────── */
+.zb52-about { position: relative; z-index: 1; padding: clamp(70px, 13vh, 170px) clamp(14px, 1.6vw, 24px) 0; }
+.zb52-about-inner { position: relative; max-width: 1440px; margin: 0 auto; border-top: 1px solid var(--zb-line); padding: clamp(40px, 7vh, 96px) clamp(12px, 3vw, 60px) 0; }
+.zb52-about-grid { display: grid; grid-template-columns: minmax(250px, 0.82fr) 1.35fr; gap: clamp(32px, 5vw, 88px); align-items: start; }
+.zb52-about-side { display: flex; flex-direction: column; gap: 26px; }
+.portrait {
+  position: relative; aspect-ratio: 4 / 5; border: 2px solid var(--zb-line);
+  background: repeating-linear-gradient(-45deg, transparent, transparent 9px, rgba(236,236,228,0.02) 9px, rgba(236,236,228,0.02) 10px), var(--zb-ink-2);
+  display: flex; align-items: center; justify-content: center;
 }
-.zb52-card:hover { transform: translate(-4px, -4px); box-shadow: 10px 10px 0 0 var(--zb-accent); border-color: var(--zb-accent); background: var(--zb-ink-3); }
-.zb52-card .c-top { display: flex; align-items: center; gap: 16px; }
-.zb52-card .idx { font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--zb-grey-dim); }
-.zb52-card .glyph { font-size: 18px; line-height: 1; filter: grayscale(0.2); }
-.zb52-card .stat { margin-left: auto; font-family: var(--zb-mono); font-size: 10px; letter-spacing: 0.16em; padding: 4px 9px; border: 1px solid var(--zb-line-2); color: var(--zb-grey); }
-.zb52-card .stat.s-live, .zb52-card .stat.s-active { color: var(--zb-accent); border-color: var(--zb-accent); }
-.zb52-card .c-name { margin: 0; font-family: var(--zb-display); font-weight: 800; font-size: clamp(1.9rem, 3.4vw, 3.2rem); line-height: 0.95; letter-spacing: -0.02em; color: var(--zb-paper); }
-.zb52-card .c-brief { margin: 0; font-size: clamp(0.95rem, 1vw, 1.08rem); line-height: 1.55; color: var(--zb-grey); max-width: 42ch; }
-.zb52-card .c-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-top: 6px; flex-wrap: wrap; }
-.zb52-card .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
-.zb52-card .tags li { font-family: var(--zb-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--zb-grey); padding: 5px 10px; border: 1px solid var(--zb-line); }
-.zb52-card .c-year { display: inline-flex; align-items: center; gap: 10px; font-family: var(--zb-mono); font-size: 12px; letter-spacing: 0.1em; color: var(--zb-grey-dim); }
-.zb52-card .c-year .arw { transition: transform var(--snap), color var(--snap); }
-.zb52-card:hover .c-year .arw { transform: translateX(5px); color: var(--zb-accent); }
+.portrait .ph { font-family: var(--zb-display); font-weight: 800; font-size: clamp(3rem, 6vw, 5rem); color: var(--zb-line-2); letter-spacing: -0.03em; }
+.portrait .pcap { position: absolute; left: 0; bottom: 0; padding: 8px 12px; font-family: var(--zb-mono); font-size: 10px; letter-spacing: 0.16em; color: var(--zb-grey); background: var(--zb-ink); border-top: 1px solid var(--zb-line); border-right: 1px solid var(--zb-line); }
+.facts { margin: 0; display: flex; flex-direction: column; }
+.facts > div { display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-top: 1px solid var(--zb-line); }
+.facts > div:last-child { border-bottom: 1px solid var(--zb-line); }
+.facts dt { font-family: var(--zb-mono); font-size: 10px; letter-spacing: 0.16em; color: var(--zb-grey-dim); }
+.facts dd { margin: 0; font-family: var(--zb-mono); font-size: 11.5px; color: var(--zb-paper); text-align: right; }
+.zb52-about-body .lead { margin: 0 0 22px; font-family: var(--zb-display); font-weight: 500; font-size: clamp(1.3rem, 2.3vw, 2rem); line-height: 1.3; letter-spacing: -0.01em; color: var(--zb-paper); }
+.zb52-about-body .lead em, .zb52-about-body p em { font-style: normal; color: var(--zb-accent); }
+.zb52-about-body p { margin: 0 0 22px; font-size: clamp(0.98rem, 1.05vw, 1.12rem); line-height: 1.72; color: var(--zb-grey); max-width: 62ch; }
+.zb52-now { margin-top: clamp(28px, 5vh, 50px); border-top: 2px solid var(--zb-line); }
+.zb52-now .now-h { display: inline-flex; align-items: center; gap: 10px; margin: 20px 0 4px; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.24em; color: var(--zb-grey); }
+.zb52-now .now-h .jp { color: var(--zb-accent); letter-spacing: 0.12em; font-size: 12px; }
+.zb52-now ul { list-style: none; margin: 0; padding: 0; }
+.zb52-now li { display: grid; grid-template-columns: 74px 1fr auto; align-items: center; gap: 20px; padding: 18px 0; border-top: 1px solid var(--zb-line); }
+.zb52-now li .y { font-family: var(--zb-mono); font-size: 12px; color: var(--zb-grey-dim); }
+.zb52-now li .role { display: flex; flex-direction: column; gap: 3px; }
+.zb52-now li .role b { font-family: var(--zb-display); font-weight: 700; font-size: clamp(1.05rem, 1.5vw, 1.32rem); letter-spacing: -0.01em; color: var(--zb-paper); }
+.zb52-now li .role span { font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--zb-grey); }
+.zb52-now li .badge { font-family: var(--zb-mono); font-size: 9.5px; letter-spacing: 0.16em; color: var(--zb-accent); border: 1px solid var(--zb-accent); padding: 4px 8px; }
+
+/* ── SELECTED WORK — readable register ─────────────────────── */
+.zb52-work { position: relative; z-index: 1; padding: clamp(70px, 13vh, 170px) clamp(14px, 1.6vw, 24px); }
+.zb52-work-inner { position: relative; max-width: 1440px; margin: 0 auto; border-top: 1px solid var(--zb-line); padding: clamp(40px, 7vh, 96px) clamp(12px, 3vw, 60px) 0; }
+.zb52-reg { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--zb-line-2); }
+.zb52-reg-row { border-bottom: 2px solid var(--zb-line); }
+.zb52-reg-row a {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: clamp(18px, 4vw, 64px);
+  padding: clamp(26px, 3.2vw, 44px) clamp(12px, 2vw, 26px);
+  text-decoration: none; position: relative;
+  transition: padding var(--snap), background var(--snap);
+}
+.zb52-reg-row a::before { content: ''; position: absolute; left: 0; top: -2px; bottom: -2px; width: 3px; background: var(--zb-accent); transform: scaleY(0); transform-origin: center; transition: transform var(--snap); }
+.zb52-reg-row a:hover { background: var(--zb-ink-2); padding-left: clamp(22px, 2.8vw, 42px); }
+.zb52-reg-row a:hover::before { transform: scaleY(1); }
+.zb52-reg-row .rn { font-family: var(--zb-mono); font-size: clamp(12px, 1vw, 14px); color: var(--zb-grey-dim); align-self: start; padding-top: 9px; transition: color var(--snap); }
+.zb52-reg-row a:hover .rn { color: var(--zb-accent); }
+.rmain { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.rhead { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.rname { font-family: var(--zb-display); font-weight: 800; font-size: clamp(1.6rem, 3.2vw, 2.7rem); line-height: 0.98; letter-spacing: -0.02em; color: var(--zb-paper); transition: color var(--snap); }
+.zb52-reg-row a:hover .rname { color: var(--zb-accent); }
+.rglyph { font-size: 15px; opacity: 0.6; }
+.rbrief { font-size: clamp(0.92rem, 1vw, 1.05rem); color: var(--zb-grey); line-height: 1.5; max-width: 54ch; }
+.rtags { display: flex; flex-wrap: wrap; gap: 7px; list-style: none; margin: 4px 0 0; padding: 0; }
+.rtags li { font-family: var(--zb-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--zb-grey); padding: 4px 9px; border: 1px solid var(--zb-line); }
+.rmeta { display: flex; align-items: center; gap: clamp(14px, 2vw, 26px); justify-self: end; }
+.rmeta .stat { font-family: var(--zb-mono); font-size: 10px; letter-spacing: 0.14em; padding: 4px 9px; border: 1px solid var(--zb-line-2); color: var(--zb-grey); }
+.rmeta .stat.s-live, .rmeta .stat.s-active { color: var(--zb-accent); border-color: var(--zb-accent); }
+.rmeta .ryear { font-family: var(--zb-mono); font-size: 12px; color: var(--zb-grey-dim); }
+.rmeta .rarw { font-size: 17px; color: var(--zb-grey-dim); transition: transform var(--snap), color var(--snap); }
+.zb52-reg-row a:hover .rarw { transform: translate(3px, -3px); color: var(--zb-accent); }
 
 /* entrance / reveal */
 .zb-in { opacity: 0; transform: translateY(14px); animation: zb-rise 0.62s cubic-bezier(0.2, 0, 0, 1) forwards; }
@@ -546,9 +645,13 @@ const CSS = `
   .zb52-namewrap, .zb52-focus { grid-column: 1 / -1; }
   .zb52-name .ln2 { margin-left: clamp(16px, 8vw, 48px); }
   .zb52-focus .cell:nth-child(2), .zb52-focus .cell:nth-child(3) { margin-right: 0; }
-  .zb52-work-head { grid-template-columns: 1fr; }
-  .zb52-work-head .note { grid-column: 1; grid-row: 3; text-align: left; }
-  .zb52-work-row .zb52-card { grid-column: 1 / -1 !important; }
+  .zb52-sec-head { grid-template-columns: 1fr; }
+  .zb52-sec-head .note { grid-column: 1; grid-row: 3; text-align: left; }
+  .zb52-about-grid { grid-template-columns: 1fr; }
+  .zb52-reg-row a { grid-template-columns: auto 1fr; }
+  .zb52-reg-row .rmeta { grid-column: 1 / -1; justify-self: start; margin-top: 14px; }
+  .zb52-now li { grid-template-columns: 58px 1fr; }
+  .zb52-now li .badge { grid-column: 2; justify-self: start; margin-top: 4px; }
 }
 @media (max-width: 520px) {
   .zb52-meta { font-size: 10px; }
