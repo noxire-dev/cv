@@ -235,10 +235,9 @@ function About() {
 
         <div className="zb52-about-grid">
           <aside className="zb52-about-side zb-reveal">
-            <div className="portrait">
-              <span className="ph">SD</span>
-              <span className="pcap">SINA&nbsp;DILEK</span>
-            </div>
+            <span className="side-label">
+              <span className="jp">詳細</span>PROFILE
+            </span>
             <dl className="facts">
               <div>
                 <dt>LOCATION</dt>
@@ -473,10 +472,10 @@ const CSS = `
 
 /* highlighter-pen emphasis — a fluorescent marker swipe behind the words */
 .zb52 em {
-  font-style: normal; color: var(--zb-paper); position: relative;
+  font-style: normal; color: var(--zb-ink);
   background-image: linear-gradient(101deg, transparent 0.4%, var(--zb-accent) 1.8%, var(--zb-accent) 98.2%, transparent 99.6%);
-  background-repeat: no-repeat; background-size: 100% 64%; background-position: 0 82%;
-  padding: 0 0.14em; margin: 0 -0.03em;
+  background-repeat: no-repeat; background-size: 100% 100%; background-position: 0 0;
+  padding: 0.05em 0.18em; margin: 0 -0.04em;
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
 
@@ -643,14 +642,9 @@ const CSS = `
 .zb52-about { position: relative; z-index: 1; padding: clamp(70px, 13vh, 170px) clamp(14px, 1.6vw, 24px) 0; }
 .zb52-about-inner { position: relative; max-width: 1440px; margin: 0 auto; border-top: 1px solid var(--zb-line); padding: clamp(40px, 7vh, 96px) clamp(12px, 3vw, 60px) 0; }
 .zb52-about-grid { display: grid; grid-template-columns: minmax(250px, 0.82fr) 1.35fr; gap: clamp(32px, 5vw, 88px); align-items: start; }
-.zb52-about-side { display: flex; flex-direction: column; gap: 26px; }
-.portrait {
-  position: relative; aspect-ratio: 4 / 5; border: 2px solid var(--zb-line);
-  background: repeating-linear-gradient(-45deg, transparent, transparent 9px, rgba(236,236,228,0.02) 9px, rgba(236,236,228,0.02) 10px), var(--zb-ink-2);
-  display: flex; align-items: center; justify-content: center;
-}
-.portrait .ph { font-family: var(--zb-display); font-weight: 800; font-size: clamp(3rem, 6vw, 5rem); color: var(--zb-line-2); letter-spacing: -0.03em; }
-.portrait .pcap { position: absolute; left: 0; bottom: 0; padding: 8px 12px; font-family: var(--zb-mono); font-size: 10px; letter-spacing: 0.16em; color: var(--zb-grey); background: var(--zb-ink); border-top: 1px solid var(--zb-line); border-right: 1px solid var(--zb-line); }
+.zb52-about-side { display: flex; flex-direction: column; gap: 18px; }
+.zb52-about-side .side-label { display: inline-flex; align-items: center; gap: 10px; font-family: var(--zb-mono); font-size: 10px; letter-spacing: 0.24em; color: var(--zb-grey-dim); }
+.zb52-about-side .side-label .jp { color: var(--zb-accent); letter-spacing: 0.12em; font-size: 12px; }
 .facts { margin: 0; display: flex; flex-direction: column; }
 .facts > div { display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-top: 1px solid var(--zb-line); }
 .facts > div:last-child { border-bottom: 1px solid var(--zb-line); }
@@ -707,7 +701,7 @@ const CSS = `
 .zb52-contact-head .kick { display: inline-flex; align-items: center; gap: 12px; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.26em; color: var(--zb-grey); margin-bottom: 26px; }
 .zb52-contact-head .kick .jp { color: var(--zb-accent); letter-spacing: 0.12em; font-size: 13px; }
 .zb52-contact-head .big { margin: 0; font-family: var(--zb-display); font-weight: 800; font-size: clamp(2.8rem, 9vw, 7.6rem); line-height: 0.86; letter-spacing: -0.035em; text-transform: uppercase; }
-.zb52-contact-head .big em { padding: 0 0.1em; background-size: 100% 62%; }
+.zb52-contact-head .big em { padding: 0.02em 0.12em; }
 .zb52-contact-head .sub { margin: clamp(24px, 3.5vh, 36px) 0 0; max-width: 52ch; font-size: clamp(1rem, 1.15vw, 1.2rem); line-height: 1.65; color: var(--zb-grey); }
 
 .zb52-mailcta { display: flex; align-items: center; gap: clamp(16px, 3vw, 40px); padding: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 44px); margin-bottom: clamp(40px, 6vh, 64px); text-decoration: none; background: var(--zb-ink-2); border: 2px solid var(--zb-line); box-shadow: 6px 6px 0 0 rgba(0,0,0,0.4); transition: transform var(--snap), box-shadow var(--snap), border-color var(--snap), background var(--snap); }
