@@ -11,26 +11,6 @@ import { contactLinks } from './design49Data'
 // Components so far: HERO + SELECTED WORK. More to follow.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const ACCENTS = [
-  { id: 'iris', name: 'IRIS', hex: '#8F90C2' },
-  { id: 'terra', name: 'TERRA', hex: '#C86B53' },
-  { id: 'wasabi', name: 'WASABI', hex: '#7D8C6A' },
-] as const
-
-// Temporary display-font comparison — pick a winner, then lock it in.
-const DISPLAYS = [
-  { id: 'syne', name: 'SYNE', family: "'Syne', system-ui, sans-serif", stretch: 'normal' },
-  { id: 'bricolage', name: 'BRICOLAGE', family: "'Bricolage Grotesque', system-ui, sans-serif", stretch: 'normal' },
-  { id: 'archivo', name: 'ARCHIVO EXP', family: "'Archivo', system-ui, sans-serif", stretch: '125%' },
-] as const
-
-function hexToRgba(hex: string, a: number) {
-  const r = parseInt(hex.slice(1, 3), 16)
-  const g = parseInt(hex.slice(3, 5), 16)
-  const b = parseInt(hex.slice(5, 7), 16)
-  return `rgba(${r}, ${g}, ${b}, ${a})`
-}
-
 const FOCUS = [
   { i: '01', t: 'Backend Systems', d: 'Python · Go · FastAPI' },
   { i: '02', t: 'Data Pipelines', d: 'Scraping · Caching · ETL' },
@@ -107,32 +87,6 @@ function useReveal(rootRef: React.RefObject<HTMLDivElement>) {
   }, [rootRef])
 }
 
-function AccentToggle({
-  accentId,
-  setAccentId,
-}: {
-  accentId: string
-  setAccentId: (id: string) => void
-}) {
-  return (
-    <div className="zb52-accents" role="group" aria-label="Accent colour">
-      <span className="lbl">ACCENT</span>
-      {ACCENTS.map((a) => (
-        <button
-          key={a.id}
-          type="button"
-          data-cursor="active"
-          className={`sw${accentId === a.id ? ' is-on' : ''}`}
-          style={{ background: a.hex }}
-          onClick={() => setAccentId(a.id)}
-          aria-pressed={accentId === a.id}
-          title={a.name}
-        />
-      ))}
-    </div>
-  )
-}
-
 const NAV = [
   { id: 'about', label: 'ABOUT' },
   { id: 'work', label: 'WORK' },
@@ -182,32 +136,6 @@ function Nav() {
         </a>
       </div>
     </nav>
-  )
-}
-
-function DisplayToggle({
-  displayId,
-  setDisplayId,
-}: {
-  displayId: string
-  setDisplayId: (id: string) => void
-}) {
-  return (
-    <div className="zb52-types" role="group" aria-label="Display font">
-      <span className="lbl">TYPE</span>
-      {DISPLAYS.map((d) => (
-        <button
-          key={d.id}
-          type="button"
-          data-cursor="active"
-          className={displayId === d.id ? 'on' : ''}
-          onClick={() => setDisplayId(d.id)}
-          aria-pressed={displayId === d.id}
-        >
-          {d.name}
-        </button>
-      ))}
-    </div>
   )
 }
 
@@ -494,6 +422,13 @@ function Contact() {
               </a>
             </li>
           ))}
+          <li>
+            <a href="/zen-brutalism.html" target="_blank" rel="noreferrer" data-cursor="active">
+              <span className="k">{String(links.length + 1).padStart(2, '0')} / SYSTEM</span>
+              <span className="v">Zen Brutalism</span>
+              <span className="arw">↗</span>
+            </a>
+          </li>
         </ul>
 
         <footer className="zb52-footer zb-reveal">
@@ -513,10 +448,6 @@ export default function Design52() {
   const cursorRef = useRawCursor(rootRef)
   useReveal(rootRef)
   const [clock, setClock] = useState('')
-  const [accentId, setAccentId] = useState('iris')
-  const accent = ACCENTS.find((a) => a.id === accentId) ?? ACCENTS[0]
-  const [displayId, setDisplayId] = useState('syne')
-  const display = DISPLAYS.find((d) => d.id === displayId) ?? DISPLAYS[0]
 
   useEffect(() => {
     const tick = () =>
@@ -533,20 +464,11 @@ export default function Design52() {
     return () => clearInterval(id)
   }, [])
 
-  const rootStyle = {
-    '--zb-accent': accent.hex,
-    '--zb-accent-lo': hexToRgba(accent.hex, 0.14),
-    '--zb-display': display.family,
-    fontStretch: display.stretch,
-  } as React.CSSProperties
-
   return (
-    <div className="zb52" ref={rootRef} style={rootStyle}>
+    <div className="zb52" ref={rootRef}>
       <style>{CSS}</style>
       <div className="zb52-noise" aria-hidden />
       <div className="zb52-cursor" ref={cursorRef} aria-hidden />
-      <AccentToggle accentId={accentId} setAccentId={setAccentId} />
-      <DisplayToggle displayId={displayId} setDisplayId={setDisplayId} />
       <Nav />
 
       <Hero clock={clock} />
@@ -570,12 +492,13 @@ const CSS = `
   --zb-accent:   #8F90C2;
   --zb-accent-lo: rgba(143,144,194,0.14);
 
-  --zb-display: 'Syne', system-ui, sans-serif;
+  --zb-display: 'Archivo', system-ui, sans-serif;
   --zb-body:    'Plus Jakarta Sans', system-ui, sans-serif;
   --zb-mono:    'IBM Plex Mono', ui-monospace, monospace;
   --snap: 0.13s cubic-bezier(0.2, 0, 0, 1);
 
   position: relative;
+  font-stretch: 125%;
   background: var(--zb-ink);
   color: var(--zb-paper);
   font-family: var(--zb-body);
@@ -641,33 +564,6 @@ const CSS = `
   width: 34px; height: 34px; margin: -17px 0 0 -17px;
   border-color: var(--zb-accent); background: var(--zb-accent-lo);
 }
-
-/* accent toggle */
-.zb52-accents {
-  position: fixed; right: clamp(16px, 2vw, 30px); bottom: clamp(16px, 2vw, 30px);
-  z-index: 40; display: flex; align-items: center; gap: 9px;
-  padding: 9px 12px; background: rgba(12,12,13,0.72);
-  border: 1px solid var(--zb-line); backdrop-filter: blur(9px);
-}
-.zb52-accents .lbl { font-family: var(--zb-mono); font-size: 9.5px; letter-spacing: 0.22em; color: var(--zb-grey-dim); margin-right: 2px; }
-.zb52-accents .sw {
-  width: 18px; height: 18px; padding: 0; border: 1.5px solid rgba(0,0,0,0.4);
-  cursor: pointer; transition: transform var(--snap), box-shadow var(--snap);
-}
-.zb52-accents .sw:hover { transform: translateY(-2px); }
-.zb52-accents .sw.is-on { box-shadow: 0 0 0 2px var(--zb-ink), 0 0 0 3.5px var(--zb-paper); }
-
-/* display-font toggle (temporary comparison) */
-.zb52-types {
-  position: fixed; left: clamp(16px, 2vw, 30px); bottom: clamp(16px, 2vw, 30px);
-  z-index: 40; display: flex; align-items: center; gap: 12px;
-  padding: 9px 13px; background: rgba(12,12,13,0.72);
-  border: 1px solid var(--zb-line); backdrop-filter: blur(9px);
-}
-.zb52-types .lbl { font-family: var(--zb-mono); font-size: 9.5px; letter-spacing: 0.22em; color: var(--zb-grey-dim); }
-.zb52-types button { font-family: var(--zb-mono); font-size: 9.5px; letter-spacing: 0.14em; color: var(--zb-grey-dim); background: none; border: none; cursor: pointer; padding: 2px 0; transition: color var(--snap); }
-.zb52-types button:hover { color: var(--zb-grey); }
-.zb52-types button.on { color: var(--zb-accent); }
 
 /* hero shell + architectural frame */
 .zb52-hero { position: relative; z-index: 1; min-height: 100vh; padding: clamp(14px, 1.6vw, 24px); }
@@ -909,9 +805,6 @@ const CSS = `
 @media (max-width: 520px) {
   .zb52-meta { font-size: 10px; }
   .zb52-meta-r { width: 100%; justify-content: space-between; }
-  .zb52-accents { padding: 7px 10px; gap: 7px; }
-  .zb52-types { padding: 6px 9px; gap: 8px; }
-  .zb52-types .lbl { display: none; }
   .zb52-contact-head .big { font-size: clamp(2rem, 11vw, 3.2rem); }
   .zb52-mailcta { grid-template-columns: 1fr; }
   .zb52-mailcta .send { grid-column: 1; grid-row: 3; justify-self: start; margin-top: 10px; }
