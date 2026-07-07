@@ -115,6 +115,58 @@ function AccentToggle({
   )
 }
 
+const NAV = [
+  { id: 'about', label: 'ABOUT' },
+  { id: 'work', label: 'WORK' },
+  { id: 'contact', label: 'CONTACT' },
+]
+
+// Sticky nav — hidden over the hero (which has its own top rail), slides in
+// once you scroll past it. Scroll-spy marks the section in view.
+function Nav() {
+  const [active, setActive] = useState('')
+  const [shown, setShown] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setShown(window.scrollY > window.innerHeight * 0.82)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: '-45% 0px -50% 0px' },
+    )
+    NAV.forEach((n) => {
+      const el = document.getElementById(n.id)
+      if (el) io.observe(el)
+    })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      io.disconnect()
+    }
+  }, [])
+
+  return (
+    <nav className={`zb52-nav${shown ? ' is-shown' : ''}`} aria-label="Primary">
+      <div className="nav-inner">
+        <a className="nav-brand" href="#top" data-cursor="active">
+          SINA&nbsp;DILEK<span className="reg">®</span>
+        </a>
+        <ul className="nav-links">
+          {NAV.map((n) => (
+            <li key={n.id}>
+              <a className={active === n.id ? 'on' : ''} href={`#${n.id}`} data-cursor="active">
+                {n.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a className="nav-cta" href="mailto:hi@sinadilek.com" data-cursor="active">
+          LET&apos;S TALK<span className="arw">→</span>
+        </a>
+      </div>
+    </nav>
+  )
+}
+
 function Hero({ clock }: { clock: string }) {
   return (
     <section className="zb52-hero" id="top">
@@ -234,6 +286,22 @@ function About() {
         </header>
 
         <div className="zb52-about-grid">
+          <div className="zb52-about-body zb-reveal">
+            <p className="lead">
+              Second-year Computer Science student at the University of Essex —
+              currently interning at <em>Cloudflare</em> on the Foundation Engineering
+              team, and CTO at <em>Price Lantern</em>.
+            </p>
+            <p>
+              I care about systems that hold up under real load: backends, data
+              pipelines, and the tooling that makes shipping them faster. I finished
+              first year at 96/100 with First Class Honours — but the work I&apos;m
+              proudest of lives outside the syllabus: a privacy-first chat engine, a
+              shell written in Go, a B2B email platform. I learn by building things end
+              to end, then sharpening them.
+            </p>
+          </div>
+
           <aside className="zb52-about-side zb-reveal">
             <span className="side-label">
               <span className="jp">詳細</span>PROFILE
@@ -251,42 +319,30 @@ function About() {
                 <dt>YEAR 1</dt>
                 <dd>96 / 100 · First Class</dd>
               </div>
+              <div>
+                <dt>FOCUS</dt>
+                <dd>Backends · Pipelines · DX</dd>
+              </div>
             </dl>
           </aside>
+        </div>
 
-          <div className="zb52-about-body zb-reveal">
-            <p className="lead">
-              Second-year Computer Science student at the University of Essex —
-              currently interning at <em>Cloudflare</em> on the Foundation Engineering
-              team, and CTO at <em>Price Lantern</em>.
-            </p>
-            <p>
-              I care about systems that hold up under real load: backends, data
-              pipelines, and the tooling that makes shipping them faster. I finished
-              first year at 96/100 with First Class Honours — but the work I&apos;m
-              proudest of lives outside the syllabus: a privacy-first chat engine, a
-              shell written in Go, a B2B email platform. I learn by building things end
-              to end, then sharpening them.
-            </p>
-
-            <div className="zb52-now">
-              <span className="now-h">
-                <span className="jp">現在</span>CURRENTLY
-              </span>
-              <ul>
-                {ROLES.map((r) => (
-                  <li key={r.role}>
-                    <span className="y">{r.y}</span>
-                    <span className="role">
-                      <b>{r.role}</b>
-                      <span>{r.org}</span>
-                    </span>
-                    {r.now && <span className="badge">NOW</span>}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        <div className="zb52-now zb-reveal">
+          <span className="now-h">
+            <span className="jp">現在</span>CURRENTLY
+          </span>
+          <ul>
+            {ROLES.map((r) => (
+              <li key={r.role}>
+                <span className="y">{r.y}</span>
+                <span className="role">
+                  <b>{r.role}</b>
+                  <span>{r.org}</span>
+                </span>
+                {r.now && <span className="badge">NOW</span>}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
@@ -433,6 +489,7 @@ export default function Design52() {
       <div className="zb52-noise" aria-hidden />
       <div className="zb52-cursor" ref={cursorRef} aria-hidden />
       <AccentToggle accentId={accentId} setAccentId={setAccentId} />
+      <Nav />
 
       <Hero clock={clock} />
       <About />
@@ -478,6 +535,29 @@ const CSS = `
   padding: 0.05em 0.18em; margin: 0 -0.04em;
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
+
+/* sticky nav — hidden over hero, slides in on scroll */
+.zb52-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  border-bottom: 1px solid var(--zb-line);
+  background: rgba(12,12,13,0.72); backdrop-filter: blur(12px) saturate(1.1); -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  transform: translateY(-102%); transition: transform 0.42s cubic-bezier(0.2, 0, 0, 1);
+}
+.zb52-nav.is-shown { transform: translateY(0); }
+.nav-inner { max-width: 1600px; margin: 0 auto; height: clamp(54px, 7vh, 64px); display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 clamp(16px, 3vw, 40px); }
+.nav-brand { font-family: var(--zb-mono); font-size: 12px; letter-spacing: 0.22em; color: var(--zb-paper); text-decoration: none; display: inline-flex; align-items: center; gap: 3px; }
+.nav-brand .reg { color: var(--zb-accent); font-size: 9px; vertical-align: super; }
+.nav-links { list-style: none; display: flex; align-items: center; gap: clamp(18px, 3vw, 40px); margin: 0; padding: 0; }
+.nav-links a { position: relative; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--zb-grey); text-decoration: none; padding: 6px 0; transition: color var(--snap); }
+.nav-links a::after { content: ''; position: absolute; left: 0; right: 100%; bottom: 0; height: 2px; background: var(--zb-accent); transition: right var(--snap); }
+.nav-links a:hover { color: var(--zb-paper); }
+.nav-links a.on { color: var(--zb-paper); }
+.nav-links a.on::after { right: 0; }
+.nav-cta { display: inline-flex; align-items: center; gap: 9px; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--zb-paper); text-decoration: none; padding: 9px 16px; border: 1.5px solid var(--zb-line-2); transition: border-color var(--snap), color var(--snap); }
+.nav-cta .arw { transition: transform var(--snap); }
+.nav-cta:hover { border-color: var(--zb-accent); color: var(--zb-accent); }
+.nav-cta:hover .arw { transform: translateX(4px); }
+.zb52-about, .zb52-work, .zb52-contact { scroll-margin-top: clamp(66px, 9vh, 84px); }
 
 /* concrete noise */
 .zb52-noise {
@@ -641,7 +721,7 @@ const CSS = `
 /* ── ABOUT ─────────────────────────────────────────────────── */
 .zb52-about { position: relative; z-index: 1; padding: clamp(70px, 13vh, 170px) clamp(14px, 1.6vw, 24px) 0; }
 .zb52-about-inner { position: relative; max-width: 1440px; margin: 0 auto; border-top: 1px solid var(--zb-line); padding: clamp(40px, 7vh, 96px) clamp(12px, 3vw, 60px) 0; }
-.zb52-about-grid { display: grid; grid-template-columns: minmax(250px, 0.82fr) 1.35fr; gap: clamp(32px, 5vw, 88px); align-items: start; }
+.zb52-about-grid { display: grid; grid-template-columns: 1.42fr minmax(268px, 0.86fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
 .zb52-about-side { display: flex; flex-direction: column; gap: 18px; }
 .zb52-about-side .side-label { display: inline-flex; align-items: center; gap: 10px; font-family: var(--zb-mono); font-size: 10px; letter-spacing: 0.24em; color: var(--zb-grey-dim); }
 .zb52-about-side .side-label .jp { color: var(--zb-accent); letter-spacing: 0.12em; font-size: 12px; }
@@ -652,16 +732,16 @@ const CSS = `
 .facts dd { margin: 0; font-family: var(--zb-mono); font-size: 11.5px; color: var(--zb-paper); text-align: right; }
 .zb52-about-body .lead { margin: 0 0 22px; font-family: var(--zb-display); font-weight: 500; font-size: clamp(1.3rem, 2.3vw, 2rem); line-height: 1.3; letter-spacing: -0.01em; color: var(--zb-paper); }
 .zb52-about-body p { margin: 0 0 22px; font-size: clamp(0.98rem, 1.05vw, 1.12rem); line-height: 1.72; color: var(--zb-grey); max-width: 62ch; }
-.zb52-now { margin-top: clamp(28px, 5vh, 50px); border-top: 2px solid var(--zb-line); }
-.zb52-now .now-h { display: inline-flex; align-items: center; gap: 10px; margin: 20px 0 4px; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.24em; color: var(--zb-grey); }
+.zb52-now { margin-top: clamp(48px, 8vh, 92px); }
+.zb52-now .now-h { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 6px; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.24em; color: var(--zb-grey); }
 .zb52-now .now-h .jp { color: var(--zb-accent); letter-spacing: 0.12em; font-size: 12px; }
-.zb52-now ul { list-style: none; margin: 0; padding: 0; }
-.zb52-now li { display: grid; grid-template-columns: 74px 1fr auto; align-items: center; gap: 20px; padding: 18px 0; border-top: 1px solid var(--zb-line); }
-.zb52-now li .y { font-family: var(--zb-mono); font-size: 12px; color: var(--zb-grey-dim); }
-.zb52-now li .role { display: flex; flex-direction: column; gap: 3px; }
-.zb52-now li .role b { font-family: var(--zb-display); font-weight: 700; font-size: clamp(1.05rem, 1.5vw, 1.32rem); letter-spacing: -0.01em; color: var(--zb-paper); }
+.zb52-now ul { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--zb-line-2); }
+.zb52-now li { display: grid; grid-template-columns: 96px 1fr auto; align-items: center; gap: clamp(16px, 3vw, 40px); padding: clamp(20px, 2.4vw, 30px) clamp(6px, 1.4vw, 18px); border-bottom: 1px solid var(--zb-line); }
+.zb52-now li .y { font-family: var(--zb-mono); font-size: 12px; letter-spacing: 0.06em; color: var(--zb-grey-dim); }
+.zb52-now li .role { display: flex; flex-direction: column; gap: 4px; }
+.zb52-now li .role b { font-family: var(--zb-display); font-weight: 700; font-size: clamp(1.15rem, 1.7vw, 1.5rem); letter-spacing: -0.01em; color: var(--zb-paper); }
 .zb52-now li .role span { font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--zb-grey); }
-.zb52-now li .badge { font-family: var(--zb-mono); font-size: 9.5px; letter-spacing: 0.16em; color: var(--zb-accent); border: 1px solid var(--zb-accent); padding: 4px 8px; }
+.zb52-now li .badge { font-family: var(--zb-mono); font-size: 9.5px; letter-spacing: 0.16em; color: var(--zb-ink); background: var(--zb-accent); padding: 5px 9px; }
 
 /* ── SELECTED WORK — readable register ─────────────────────── */
 .zb52-work { position: relative; z-index: 1; padding: clamp(70px, 13vh, 170px) clamp(14px, 1.6vw, 24px); }
@@ -757,6 +837,10 @@ const CSS = `
   .zb52-mailcta { flex-wrap: wrap; gap: 14px; }
   .zb52-links a { grid-template-columns: 1fr auto; }
   .zb52-links .k { grid-column: 1 / -1; }
+  .zb52-nav .nav-cta { display: none; }
+  .nav-links { gap: 18px; }
+  .zb52-now li { grid-template-columns: 56px 1fr; }
+  .zb52-now li .badge { grid-column: 2; justify-self: start; margin-top: 4px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .zb-in, .zb-reveal { animation: none; opacity: 1; transform: none; transition: none; }
