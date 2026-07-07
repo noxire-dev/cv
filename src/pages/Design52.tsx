@@ -31,14 +31,14 @@ const FOCUS = [
 ]
 
 const PROJECTS = [
-  { id: 'tayf', name: 'Tayf', glyph: '◧', brief: 'Real-time Turkish news-bias analyzer — clusters 144 outlets by story across the political spectrum.', stack: ['Next.js', 'React 19', 'Supabase'], year: '2026', status: 'LIVE', link: 'https://tayf-ruby.vercel.app' },
-  { id: 'toka', name: 'Toka', glyph: '◈', brief: 'An AI agent harness where the model writes and manages its own tools from a single REPL.', stack: ['TypeScript', 'Claude Agent SDK'], year: '2026', status: 'DEV', link: 'https://github.com/noxire-dev/toka' },
-  { id: 'pookie', name: 'Pookie', glyph: '💬', brief: 'Privacy-first chat analytics that processes 1M+ messages entirely in-browser.', stack: ['React', 'TypeScript', 'Web Workers'], year: '2026', status: 'LIVE', link: 'https://pookie.sh' },
-  { id: 'lumiko', name: 'Lumiko', glyph: '❋', brief: 'AI documentation generator — turns a codebase into README, architecture, and API docs.', stack: ['TypeScript', 'Claude', 'CLI'], year: '2026', status: 'STABLE', link: 'https://github.com/mirako-studio/lumiko' },
-  { id: 'moji', name: 'Moji', glyph: '✦', brief: 'Workspace-centric productivity platform with rich-text pages and real-time updates.', stack: ['FastAPI', 'Next.js', 'Supabase'], year: '2025', status: 'LIVE', link: 'https://usemoji.app' },
-  { id: 'vello', name: 'Vello', glyph: '✉', brief: 'B2B cold-email automation built to scale without burning sender reputation.', stack: ['Python', 'Modular Services'], year: '2025', status: 'DEV', link: 'https://github.com/noxire-dev/vello' },
-  { id: 'gosh', name: 'GoSH', glyph: '>', brief: 'A Unix shell written from scratch in Go — pipes, redirects, process control.', stack: ['Go', 'Systems'], year: '2025', status: 'ACTIVE', link: 'https://github.com/noxire-dev/GoSH' },
-  { id: 'midnight', name: 'Midnight Moon', glyph: '◑', brief: 'A dark VS Code theme collection tuned by colour science, not screenshots.', stack: ['Design', 'JSON'], year: '2024', status: 'STABLE', link: 'https://github.com/noxire-dev/midnight-theme' },
+  { id: 'tayf', name: 'Tayf', glyph: '◧', brief: 'Reads how 144 Turkish outlets spin the same story — clusters the news live and surfaces the blind spots each side misses.', stack: ['Next.js', 'React 19', 'Supabase'], year: '2026', status: 'LIVE', link: 'https://tayf-ruby.vercel.app' },
+  { id: 'toka', name: 'Toka', glyph: '◈', brief: 'Hands an AI model a REPL and lets it write its own tools — instead of cramming every task into mine.', stack: ['TypeScript', 'Claude Agent SDK'], year: '2026', status: 'DEV', link: 'https://github.com/noxire-dev/toka' },
+  { id: 'pookie', name: 'Pookie', glyph: '💬', brief: 'Throws a million WhatsApp messages at your browser and analyzes every one locally — nothing ever leaves your device.', stack: ['React', 'TypeScript', 'Web Workers'], year: '2026', status: 'LIVE', link: 'https://pookie.sh' },
+  { id: 'lumiko', name: 'Lumiko', glyph: '❋', brief: 'Points Claude at a repo and writes the docs you keep putting off — README, architecture, API, the lot.', stack: ['TypeScript', 'Claude', 'CLI'], year: '2026', status: 'STABLE', link: 'https://github.com/mirako-studio/lumiko' },
+  { id: 'moji', name: 'Moji', glyph: '✦', brief: 'A productivity app that’s fast and opinionated — built because everything else felt bloated.', stack: ['FastAPI', 'Next.js', 'Supabase'], year: '2025', status: 'LIVE', link: 'https://usemoji.app' },
+  { id: 'vello', name: 'Vello', glyph: '✉', brief: 'Cold email that scales without torching your sender reputation — the unglamorous plumbing, done right.', stack: ['Python', 'Modular Services'], year: '2025', status: 'DEV', link: 'https://github.com/noxire-dev/vello' },
+  { id: 'gosh', name: 'GoSH', glyph: '>', brief: 'A Unix shell built from scratch in Go, because I wanted to know exactly how the thing I use all day works.', stack: ['Go', 'Systems'], year: '2025', status: 'ACTIVE', link: 'https://github.com/noxire-dev/GoSH' },
+  { id: 'midnight', name: 'Midnight Moon', glyph: '◑', brief: 'A dark VS Code theme tuned by contrast ratios, not vibes — made for long nights.', stack: ['Design', 'JSON'], year: '2024', status: 'STABLE', link: 'https://github.com/noxire-dev/midnight-theme' },
 ]
 
 // Custom raw cursor: crisp square, tracks 1:1 (no lag = brutalist),
@@ -222,14 +222,17 @@ function Hero({ clock }: { clock: string }) {
             <p className="zb52-bio zb-in" style={{ animationDelay: '.34s' }}>
               Final-year Computer Science student at the University of Essex,
               currently a software engineer intern at <em>Cloudflare</em>
-              (Foundation Engineering) and CTO at Price Lantern. I build backend
-              systems, data pipelines, and developer tools — engineered to ship,
-              not to demo.
+              (Foundation Engineering) and CTO at <em>Price Lantern</em>. I build
+              backend systems, data pipelines, and developer tools — engineered to
+              ship, not to demo.
             </p>
 
             <div className="zb52-cta zb-in" style={{ animationDelay: '.42s' }}>
               <a className="btn" href="#work" data-cursor="active">
                 VIEW&nbsp;WORK<span className="arw">→</span>
+              </a>
+              <a className="btn ghost" href="/Sina_Dilek_CV.pdf" download data-cursor="active">
+                DOWNLOAD&nbsp;CV<span className="arw">↓</span>
               </a>
               <a className="mail" href="mailto:hi@sinadilek.com" data-cursor="active">
                 hi@sinadilek.com
@@ -301,18 +304,19 @@ function About() {
         <div className="zb52-about-grid">
           <div className="zb52-about-body zb-reveal">
             <p className="lead">
-              Final-year Computer Science student at the University of Essex —
-              currently a software engineer intern at <em>Cloudflare</em> on the
-              Foundation Engineering team, and CTO at <em>Price Lantern</em>.
+              I&apos;m a final-year CS student at the University of Essex. Right now
+              I&apos;m interning at <em>Cloudflare</em> on the Foundation Engineering
+              team and running the tech as CTO at <em>Price Lantern</em>.
             </p>
             <p>
-              I care about systems that hold up under real load: backends, data
-              pipelines, and the tooling that makes shipping them faster. Two years
-              into my degree I&apos;m holding a First-Class average — 96% in first
-              year, 80% and a place on the Dean&apos;s List for Excellence in
-              second — but the work I&apos;m proudest of lives outside the syllabus:
-              a Turkish news-bias analyzer, an AI agent harness, a privacy-first chat
-              engine. I learn by building things end to end, then sharpening them.
+              Honestly, most of what I&apos;m any good at came from building things,
+              not from lectures. I keep picking problems that are a little out of my
+              depth — a shell written in Go while I was still learning the language, a
+              chat analyzer that chews through a million messages with no server, an AI
+              harness that lets a model build its own tools. The degree&apos;s gone well
+              (96% in first year, then 80% and a Dean&apos;s List for Excellence spot in
+              second), but I&apos;d rather be judged on what I actually ship. Hand me
+              something real to build and I&apos;ll go deep on it until it&apos;s right.
             </p>
           </div>
 
@@ -422,7 +426,7 @@ function Contact() {
           <h2 className="big">
             LET&apos;S BUILD
             <br />
-            <em>SOMETHING</em>.
+            <em>SOMETHING</em>
           </h2>
           <p className="sub">
             Open to graduate roles, internships, and collaboration — the fastest way
@@ -432,10 +436,12 @@ function Contact() {
 
         <a className="zb52-mailcta zb-reveal" href="mailto:hi@sinadilek.com" data-cursor="active">
           <span className="l">
-            <span className="jp">メール</span>EMAIL
+            <span className="jp">メール</span>DROP&nbsp;ME&nbsp;A&nbsp;LINE
           </span>
           <span className="addr">hi@sinadilek.com</span>
-          <span className="arw">→</span>
+          <span className="send">
+            SEND<span className="arw">→</span>
+          </span>
         </a>
 
         <ul className="zb52-links zb-reveal">
@@ -695,6 +701,9 @@ const CSS = `
 .zb52-cta .btn:hover { transform: translate(-4px, -4px); box-shadow: 9px 9px 0 0 var(--zb-accent); border-color: var(--zb-accent); background: var(--zb-ink-3); }
 .zb52-cta .btn:hover .arw { transform: translateX(5px); }
 .zb52-cta .btn:active { transform: translate(0, 0); box-shadow: 3px 3px 0 0 var(--zb-accent); }
+.zb52-cta .btn.ghost { border-color: var(--zb-line-2); color: var(--zb-grey); box-shadow: 5px 5px 0 0 transparent; }
+.zb52-cta .btn.ghost:hover { color: var(--zb-paper); border-color: var(--zb-accent); box-shadow: 9px 9px 0 0 var(--zb-accent); }
+.zb52-cta .btn.ghost:hover .arw { transform: translateY(4px); }
 .zb52-cta .mail {
   font-family: var(--zb-mono); font-size: 12px; letter-spacing: 0.06em; color: var(--zb-grey); text-decoration: none;
   padding-bottom: 3px; border-bottom: 1px solid var(--zb-line-2); transition: color var(--snap), border-color var(--snap);
@@ -719,7 +728,8 @@ const CSS = `
 .zb52-focus .cell:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0 0 var(--zb-accent); border-color: var(--zb-accent); background: var(--zb-ink-3); }
 .zb52-focus .cell:hover .arw { transform: translate(3px, -3px); color: var(--zb-accent); }
 
-.zb52-foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; font-family: var(--zb-mono); font-size: 10.5px; letter-spacing: 0.2em; color: var(--zb-grey-dim); flex-wrap: wrap; }
+.zb52-foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; font-family: var(--zb-mono); font-size: 10.5px; letter-spacing: 0.2em; color: var(--zb-grey); flex-wrap: wrap; }
+.zb52-foot .sig { color: #b4afa4; }
 .zb52-foot .scroll { display: inline-flex; align-items: center; color: var(--zb-grey); text-decoration: none; }
 .zb52-foot .scroll:hover { color: var(--zb-accent); }
 .zb52-foot .scroll .ar { display: inline-block; color: var(--zb-accent); animation: zb-bob 1.9s var(--snap) infinite; }
@@ -798,13 +808,15 @@ const CSS = `
 .zb52-contact-head .big em { padding: 0.02em 0.12em; }
 .zb52-contact-head .sub { margin: clamp(24px, 3.5vh, 36px) 0 0; max-width: 52ch; font-size: clamp(1rem, 1.15vw, 1.2rem); line-height: 1.65; color: var(--zb-grey); }
 
-.zb52-mailcta { display: flex; align-items: center; gap: clamp(16px, 3vw, 40px); padding: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 44px); margin-bottom: clamp(40px, 6vh, 64px); text-decoration: none; background: var(--zb-ink-2); border: 2px solid var(--zb-line); box-shadow: 6px 6px 0 0 rgba(0,0,0,0.4); transition: transform var(--snap), box-shadow var(--snap), border-color var(--snap), background var(--snap); }
+.zb52-mailcta { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px clamp(20px, 3vw, 44px); padding: clamp(26px, 3vw, 44px) clamp(24px, 3vw, 44px); margin-bottom: clamp(40px, 6vh, 64px); text-decoration: none; background: var(--zb-ink-2); border: 2px solid var(--zb-line); box-shadow: 6px 6px 0 0 rgba(0,0,0,0.4); transition: transform var(--snap), box-shadow var(--snap), border-color var(--snap), background var(--snap); }
 .zb52-mailcta:hover { transform: translate(-5px, -5px); box-shadow: 12px 12px 0 0 var(--zb-accent); border-color: var(--zb-accent); background: var(--zb-ink-3); }
-.zb52-mailcta .l { display: inline-flex; align-items: center; gap: 9px; font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--zb-grey); white-space: nowrap; }
-.zb52-mailcta .l .jp { color: var(--zb-accent); font-size: 12px; }
-.zb52-mailcta .addr { flex: 1; font-family: var(--zb-display); font-weight: 800; font-size: clamp(1.4rem, 4.4vw, 3.3rem); letter-spacing: -0.02em; color: var(--zb-paper); word-break: break-word; }
-.zb52-mailcta .arw { font-size: clamp(20px, 2.4vw, 30px); color: var(--zb-grey-dim); transition: transform var(--snap), color var(--snap); }
-.zb52-mailcta:hover .arw { transform: translateX(6px); color: var(--zb-accent); }
+.zb52-mailcta .l { grid-column: 1; display: inline-flex; align-items: center; gap: 9px; font-family: var(--zb-mono); font-size: 10.5px; letter-spacing: 0.22em; color: var(--zb-grey-dim); }
+.zb52-mailcta .l .jp { color: var(--zb-accent); font-size: 12px; letter-spacing: 0.12em; }
+.zb52-mailcta .addr { grid-column: 1; grid-row: 2; font-family: var(--zb-display); font-weight: 700; font-size: clamp(1.5rem, 4vw, 2.9rem); letter-spacing: -0.015em; color: var(--zb-paper); word-break: break-word; line-height: 1; }
+.zb52-mailcta .send { grid-column: 2; grid-row: 1 / 3; display: inline-flex; align-items: center; gap: 12px; font-family: var(--zb-mono); font-size: 12px; letter-spacing: 0.2em; color: var(--zb-grey); white-space: nowrap; }
+.zb52-mailcta .send .arw { font-size: 20px; transition: transform var(--snap), color var(--snap); }
+.zb52-mailcta:hover .send { color: var(--zb-accent); }
+.zb52-mailcta:hover .send .arw { transform: translateX(6px); }
 
 .zb52-links { list-style: none; margin: 0 0 clamp(48px, 8vh, 84px); padding: 0; border-top: 2px solid var(--zb-line-2); }
 .zb52-links li { border-bottom: 2px solid var(--zb-line); }
@@ -848,7 +860,9 @@ const CSS = `
   .zb52-meta { font-size: 10px; }
   .zb52-meta-r { width: 100%; justify-content: space-between; }
   .zb52-accents { padding: 7px 10px; gap: 7px; }
-  .zb52-mailcta { flex-wrap: wrap; gap: 14px; }
+  .zb52-contact-head .big { font-size: clamp(2rem, 11vw, 3.2rem); }
+  .zb52-mailcta { grid-template-columns: 1fr; }
+  .zb52-mailcta .send { grid-column: 1; grid-row: 3; justify-self: start; margin-top: 10px; }
   .zb52-links a { grid-template-columns: 1fr auto; }
   .zb52-links .k { grid-column: 1 / -1; }
   .zb52-nav .nav-cta { display: none; }
