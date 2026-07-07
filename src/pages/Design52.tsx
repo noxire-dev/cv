@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { contactLinks, projects } from './design49Data'
+import { contactLinks } from './design49Data'
 
 // ── Design 52: ZEN BRUTALISM v3 ──────────────────────────────────────────────
 // Dark-only. Industrial brutalism × Japanese minimalism (Ma).
@@ -28,6 +28,17 @@ const FOCUS = [
   { i: '01', t: 'Backend Systems', d: 'Python · Go · FastAPI' },
   { i: '02', t: 'Data Pipelines', d: 'Scraping · Caching · ETL' },
   { i: '03', t: 'Developer Tools', d: 'Shells · CLIs · DX' },
+]
+
+const PROJECTS = [
+  { id: 'tayf', name: 'Tayf', glyph: '◧', brief: 'Real-time Turkish news-bias analyzer — clusters 144 outlets by story across the political spectrum.', stack: ['Next.js', 'React 19', 'Supabase'], year: '2026', status: 'LIVE', link: 'https://tayf-ruby.vercel.app' },
+  { id: 'toka', name: 'Toka', glyph: '◈', brief: 'An AI agent harness where the model writes and manages its own tools from a single REPL.', stack: ['TypeScript', 'Claude Agent SDK'], year: '2026', status: 'DEV', link: 'https://github.com/noxire-dev/toka' },
+  { id: 'pookie', name: 'Pookie', glyph: '💬', brief: 'Privacy-first chat analytics that processes 1M+ messages entirely in-browser.', stack: ['React', 'TypeScript', 'Web Workers'], year: '2026', status: 'LIVE', link: 'https://pookie.sh' },
+  { id: 'lumiko', name: 'Lumiko', glyph: '❋', brief: 'AI documentation generator — turns a codebase into README, architecture, and API docs.', stack: ['TypeScript', 'Claude', 'CLI'], year: '2026', status: 'STABLE', link: 'https://github.com/mirako-studio/lumiko' },
+  { id: 'moji', name: 'Moji', glyph: '✦', brief: 'Workspace-centric productivity platform with rich-text pages and real-time updates.', stack: ['FastAPI', 'Next.js', 'Supabase'], year: '2025', status: 'LIVE', link: 'https://usemoji.app' },
+  { id: 'vello', name: 'Vello', glyph: '✉', brief: 'B2B cold-email automation built to scale without burning sender reputation.', stack: ['Python', 'Modular Services'], year: '2025', status: 'DEV', link: 'https://github.com/noxire-dev/vello' },
+  { id: 'gosh', name: 'GoSH', glyph: '>', brief: 'A Unix shell written from scratch in Go — pipes, redirects, process control.', stack: ['Go', 'Systems'], year: '2025', status: 'ACTIVE', link: 'https://github.com/noxire-dev/GoSH' },
+  { id: 'midnight', name: 'Midnight Moon', glyph: '◑', brief: 'A dark VS Code theme collection tuned by colour science, not screenshots.', stack: ['Design', 'JSON'], year: '2024', status: 'STABLE', link: 'https://github.com/noxire-dev/midnight-theme' },
 ]
 
 // Custom raw cursor: crisp square, tracks 1:1 (no lag = brutalist),
@@ -185,7 +196,7 @@ function Hero({ clock }: { clock: string }) {
           <span className="zb52-meta-r">
             <span className="zb52-status">
               <i className="lamp" />
-              OPEN&nbsp;TO&nbsp;2026&nbsp;INTERNSHIPS
+              OPEN&nbsp;TO&nbsp;2027&nbsp;ROLES
             </span>
             <span className="zb52-clock">{clock}</span>
           </span>
@@ -196,7 +207,7 @@ function Hero({ clock }: { clock: string }) {
             <span className="zb52-kicker zb-in" style={{ animationDelay: '.12s' }}>
               <span className="jp">制作</span>
               <span className="ln" />
-              CS&nbsp;STUDENT · CTO · BUILDER
+              CLOUDFLARE&nbsp;INTERN · CTO · CS&nbsp;STUDENT
             </span>
 
             <h1 className="zb52-name">
@@ -209,9 +220,11 @@ function Hero({ clock }: { clock: string }) {
             </h1>
 
             <p className="zb52-bio zb-in" style={{ animationDelay: '.34s' }}>
-              Second-year Computer Science student at the University of Essex and
-              CTO at <em>Price Lantern</em>. I build backend systems, data
-              pipelines, and developer tools — engineered to ship, not to demo.
+              Final-year Computer Science student at the University of Essex,
+              currently a software engineer intern at <em>Cloudflare</em>
+              (Foundation Engineering) and CTO at Price Lantern. I build backend
+              systems, data pipelines, and developer tools — engineered to ship,
+              not to demo.
             </p>
 
             <div className="zb52-cta zb-in" style={{ animationDelay: '.42s' }}>
@@ -288,17 +301,18 @@ function About() {
         <div className="zb52-about-grid">
           <div className="zb52-about-body zb-reveal">
             <p className="lead">
-              Second-year Computer Science student at the University of Essex —
-              currently interning at <em>Cloudflare</em> on the Foundation Engineering
-              team, and CTO at <em>Price Lantern</em>.
+              Final-year Computer Science student at the University of Essex —
+              currently a software engineer intern at <em>Cloudflare</em> on the
+              Foundation Engineering team, and CTO at <em>Price Lantern</em>.
             </p>
             <p>
               I care about systems that hold up under real load: backends, data
-              pipelines, and the tooling that makes shipping them faster. I finished
-              first year at 96/100 with First Class Honours — but the work I&apos;m
-              proudest of lives outside the syllabus: a privacy-first chat engine, a
-              shell written in Go, a B2B email platform. I learn by building things end
-              to end, then sharpening them.
+              pipelines, and the tooling that makes shipping them faster. Two years
+              into my degree I&apos;m holding a First-Class average — 96% in first
+              year, 80% and a place on the Dean&apos;s List for Excellence in
+              second — but the work I&apos;m proudest of lives outside the syllabus:
+              a Turkish news-bias analyzer, an AI agent harness, a privacy-first chat
+              engine. I learn by building things end to end, then sharpening them.
             </p>
           </div>
 
@@ -312,16 +326,16 @@ function About() {
                 <dd>Essex, UK · GMT+0</dd>
               </div>
               <div>
-                <dt>STUDY</dt>
+                <dt>DEGREE</dt>
                 <dd>BSc Computer Science</dd>
               </div>
               <div>
-                <dt>YEAR 1</dt>
-                <dd>96 / 100 · First Class</dd>
+                <dt>RESULTS</dt>
+                <dd>Y1 96% · Y2 80%</dd>
               </div>
               <div>
-                <dt>FOCUS</dt>
-                <dd>Backends · Pipelines · DX</dd>
+                <dt>HONOURS</dt>
+                <dd>Dean&apos;s List · First Class</dd>
               </div>
             </dl>
           </aside>
@@ -358,13 +372,13 @@ function Work() {
             <span className="jp">仕事</span>SELECTED&nbsp;WORK
           </span>
           <h2 className="ttl">
-            WORK<span className="ct">/ {String(projects.length).padStart(2, '0')}</span>
+            WORK<span className="ct">/ {String(PROJECTS.length).padStart(2, '0')}</span>
           </h2>
           <span className="note">Things I&apos;ve designed, built, and shipped.</span>
         </header>
 
         <ol className="zb52-reg">
-          {projects.map((p, idx) => (
+          {PROJECTS.map((p, idx) => (
             <li key={p.id} className="zb52-reg-row zb-reveal">
               <a href={p.link} target="_blank" rel="noreferrer" data-cursor="active">
                 <span className="rn">{String(idx + 1).padStart(2, '0')}</span>
@@ -411,7 +425,7 @@ function Contact() {
             <em>SOMETHING</em>.
           </h2>
           <p className="sub">
-            Open to 2026 internships, freelance, and collaboration — the fastest way
+            Open to graduate roles, internships, and collaboration — the fastest way
             to reach me is a direct email.
           </p>
         </header>
