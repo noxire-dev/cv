@@ -800,10 +800,16 @@ const CSS = `
 
 /* responsive */
 @media (max-width: 920px) {
-  .zb52-main { grid-template-columns: 1fr; align-items: start; }
+  .zb52-frame { gap: clamp(30px, 5vh, 52px); }
+  .zb52-main { grid-template-columns: 1fr; align-items: start; row-gap: clamp(30px, 5vh, 48px); padding: clamp(20px, 3vh, 40px) 0; }
   .zb52-namewrap, .zb52-focus { grid-column: 1 / -1; }
   .zb52-name .ln2 { margin-left: clamp(16px, 8vw, 48px); }
-  .zb52-focus .cell:nth-child(2), .zb52-focus .cell:nth-child(3) { margin-right: 0; }
+  .zb52-kicker { flex-wrap: wrap; gap: 10px 12px; }
+  .zb52-kicker .ln { display: none; }
+  .zb52-kicker .jp { white-space: nowrap; }
+  .zb52-focus ul { align-items: stretch; }
+  .zb52-focus .cell { width: 100%; }
+  .zb52-focus .cell:nth-child(2), .zb52-focus .cell:nth-child(3), .zb52-focus .cell:nth-child(4) { margin-right: 0; }
   .zb52-sec-head { grid-template-columns: 1fr; }
   .zb52-sec-head .note { grid-column: 1; grid-row: 3; text-align: left; }
   .zb52-about-grid { grid-template-columns: 1fr; }
@@ -811,6 +817,11 @@ const CSS = `
   .zb52-reg-row .rmeta { grid-column: 1 / -1; justify-self: start; margin-top: 14px; }
   .zb52-now li { grid-template-columns: 58px 1fr; }
   .zb52-now li .badge { grid-column: 2; justify-self: start; margin-top: 4px; }
+  .zb52-about, .zb52-work, .zb52-contact { padding-top: clamp(44px, 7vh, 72px); }
+  .zb52-work, .zb52-contact { padding-bottom: clamp(44px, 7vh, 72px); }
+  .zb52-about-inner, .zb52-work-inner, .zb52-contact-inner { padding-top: clamp(32px, 5vh, 52px); }
+  .zb52-sec-head { margin-bottom: clamp(30px, 5vh, 52px); }
+  .zb52-now { margin-top: clamp(34px, 6vh, 60px); }
 }
 @media (max-width: 520px) {
   .zb52-meta { font-size: 10px; }
