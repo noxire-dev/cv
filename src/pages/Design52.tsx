@@ -15,6 +15,7 @@ const FOCUS = [
   { i: '01', t: 'Backend Systems', d: 'Python · Go · FastAPI' },
   { i: '02', t: 'Data Pipelines', d: 'Scraping · Caching · ETL' },
   { i: '03', t: 'Developer Tools', d: 'Shells · CLIs · DX' },
+  { i: '04', t: 'Interface & UX', d: 'Design Systems · Motion · Type' },
 ]
 
 const PROJECTS = [
@@ -666,8 +667,9 @@ const CSS = `
   background: var(--zb-ink-2); border: 2px solid var(--zb-line); box-shadow: 4px 4px 0 0 rgba(0,0,0,0.35);
   transition: transform var(--snap), box-shadow var(--snap), border-color var(--snap), background var(--snap);
 }
-.zb52-focus .cell:nth-child(2) { margin-right: clamp(0px, 3vw, 48px); }
-.zb52-focus .cell:nth-child(3) { margin-right: clamp(0px, 6vw, 96px); }
+.zb52-focus .cell:nth-child(2) { margin-right: clamp(0px, 2vw, 30px); }
+.zb52-focus .cell:nth-child(3) { margin-right: clamp(0px, 4vw, 60px); }
+.zb52-focus .cell:nth-child(4) { margin-right: clamp(0px, 6vw, 90px); }
 .zb52-focus .cell .i { font-family: var(--zb-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--zb-grey-dim); padding-top: 2px; }
 .zb52-focus .cell .body { display: flex; flex-direction: column; gap: 5px; flex: 1; }
 .zb52-focus .cell .t { font-family: var(--zb-display); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; color: var(--zb-paper); }
