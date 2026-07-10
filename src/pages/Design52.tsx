@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { contactLinks } from './design49Data'
+
+const CONTACT_LINKS = [
+  { label: 'EMAIL', value: 'hi@sinadilek.com', href: 'mailto:hi@sinadilek.com' },
+  { label: 'GITHUB', value: 'noxire-dev', href: 'https://github.com/noxire-dev' },
+  { label: 'LINKEDIN', value: 'sina-dilek', href: 'https://linkedin.com/in/sina-dilek-395501247' },
+]
 
 // ── Design 52: ZEN BRUTALISM v3 ──────────────────────────────────────────────
 // Dark-only. Industrial brutalism × Japanese minimalism (Ma).
@@ -211,7 +216,6 @@ function Hero({ clock }: { clock: string }) {
                 <li
                   key={f.i}
                   className="cell zb-in"
-                  data-cursor="active"
                   style={{ animationDelay: `${0.38 + idx * 0.08}s` }}
                 >
                   <span className="i">{f.i}</span>
@@ -219,7 +223,6 @@ function Hero({ clock }: { clock: string }) {
                     <span className="t">{f.t}</span>
                     <span className="d">{f.d}</span>
                   </span>
-                  <span className="arw">↗</span>
                 </li>
               ))}
             </ul>
@@ -379,7 +382,7 @@ function Work() {
 }
 
 function Contact() {
-  const links = contactLinks.filter((c) => c.label !== 'EMAIL')
+  const links = CONTACT_LINKS.filter((c) => c.label !== 'EMAIL')
   return (
     <section className="zb52-contact" id="contact">
       <div className="zb52-contact-inner">
@@ -561,7 +564,7 @@ const CSS = `
               border-color var(--snap), background var(--snap);
   display: none;
 }
-.zb52.zb-cursor-on { cursor: none; }
+.zb52.zb-cursor-on, .zb52.zb-cursor-on * { cursor: none; }
 .zb52.zb-cursor-on .zb52-cursor { display: block; }
 .zb52-cursor.is-active {
   width: 34px; height: 34px; margin: -17px 0 0 -17px;
@@ -665,7 +668,7 @@ const CSS = `
 .zb52-focus .cell {
   width: min(100%, 366px); display: flex; align-items: center; gap: 16px; padding: 19px 20px;
   background: var(--zb-ink-2); border: 2px solid var(--zb-line); box-shadow: 4px 4px 0 0 rgba(0,0,0,0.35);
-  transition: transform var(--snap), box-shadow var(--snap), border-color var(--snap), background var(--snap);
+  transition: border-color var(--snap), background var(--snap);
 }
 .zb52-focus .cell:nth-child(2) { margin-right: clamp(0px, 2vw, 30px); }
 .zb52-focus .cell:nth-child(3) { margin-right: clamp(0px, 4vw, 60px); }
@@ -674,9 +677,7 @@ const CSS = `
 .zb52-focus .cell .body { display: flex; flex-direction: column; gap: 5px; flex: 1; }
 .zb52-focus .cell .t { font-family: var(--zb-display); font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; color: var(--zb-paper); }
 .zb52-focus .cell .d { font-family: var(--zb-mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--zb-grey); }
-.zb52-focus .cell .arw { color: var(--zb-grey-dim); font-size: 15px; transition: transform var(--snap), color var(--snap); }
-.zb52-focus .cell:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0 0 var(--zb-accent); border-color: var(--zb-accent); background: var(--zb-ink-3); }
-.zb52-focus .cell:hover .arw { transform: translate(3px, -3px); color: var(--zb-accent); }
+.zb52-focus .cell:hover { border-color: var(--zb-line-2); background: var(--zb-ink-3); }
 
 .zb52-foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; font-family: var(--zb-mono); font-size: 10.5px; letter-spacing: 0.2em; color: var(--zb-grey); flex-wrap: wrap; }
 .zb52-foot .sig { color: #b4afa4; }
