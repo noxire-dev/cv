@@ -18,7 +18,7 @@ const FOCUS = [
 ]
 
 const PROJECTS = [
-  { id: 'tayf', name: 'Tayf', glyph: '◧', brief: 'Reads how 144 Turkish outlets spin the same story — clusters the news live and surfaces the blind spots each side misses.', stack: ['Next.js', 'React 19', 'Supabase'], year: '2026', status: 'LIVE', link: 'https://tayf-ruby.vercel.app' },
+  { id: 'tayf', name: 'Tayf', glyph: '◧', brief: 'A "Ground News" for Turkey — clusters 144 outlets by story in real time and surfaces the blind spots each side underreports. Built solo in ~3.5 weeks.', stack: ['Next.js 16', 'React 19', 'Supabase'], year: '2026', status: 'LIVE', link: 'https://tayfhaber.com' },
   { id: 'toka', name: 'Toka', glyph: '◈', brief: 'Hands an AI model a REPL and lets it write its own tools — instead of cramming every task into mine.', stack: ['TypeScript', 'Claude Agent SDK'], year: '2026', status: 'DEV', link: 'https://github.com/noxire-dev/toka' },
   { id: 'pookie', name: 'Pookie', glyph: '💬', brief: 'Throws a million WhatsApp messages at your browser and analyzes every one locally — nothing ever leaves your device.', stack: ['React', 'TypeScript', 'Web Workers'], year: '2026', status: 'LIVE', link: 'https://pookie.sh' },
   { id: 'lumiko', name: 'Lumiko', glyph: '❋', brief: 'Points Claude at a repo and writes the docs you keep putting off — README, architecture, API, the lot.', stack: ['TypeScript', 'Claude', 'CLI'], year: '2026', status: 'STABLE', link: 'https://github.com/mirako-studio/lumiko' },
@@ -181,11 +181,11 @@ function Hero({ clock }: { clock: string }) {
             </h1>
 
             <p className="zb52-bio zb-in" style={{ animationDelay: '.34s' }}>
-              Final-year Computer Science student at the University of Essex,
-              currently a software engineer intern at <em>Cloudflare</em>
-              (Foundation Engineering) and CTO at <em>Price Lantern</em>. I build
-              backend systems, data pipelines, and developer tools — engineered to
-              ship, not to demo.
+              Second-year Computer Science student at the University of Essex —
+              First-Class, top of cohort — currently a software engineer intern at
+              <em>Cloudflare</em> (Resilience, Foundational Engineering) and CTO at
+              <em>Price Lantern</em>. I build backend systems, data pipelines, and
+              developer tools — engineered to ship, not to demo.
             </p>
 
             <div className="zb52-cta zb-in" style={{ animationDelay: '.42s' }}>
@@ -230,7 +230,7 @@ function Hero({ clock }: { clock: string }) {
             <span className="ar">↓</span>&nbsp;&nbsp;SCROLL&nbsp;TO&nbsp;ENTER
           </a>
           <span className="sig">
-            ESSEX,&nbsp;UK — DESIGNED&nbsp;&amp;&nbsp;BUILT&nbsp;BY&nbsp;HAND
+            COLCHESTER,&nbsp;UK — DESIGNED&nbsp;&amp;&nbsp;BUILT&nbsp;BY&nbsp;HAND
           </span>
         </footer>
       </div>
@@ -242,11 +242,11 @@ const ROLES = [
   {
     y: '2026',
     role: 'Software Engineer Intern',
-    org: 'Cloudflare · Foundation Engineering',
+    org: 'Cloudflare · Resilience (Foundational Eng.) · London',
     now: true,
   },
   { y: '2025—', role: 'Chief Technology Officer', org: 'Price Lantern · Pre-seed AI', now: false },
-  { y: '2024—', role: 'BSc Computer Science', org: 'University of Essex', now: false },
+  { y: '2024—', role: 'BSc Computer Science', org: 'University of Essex · Exp. 2027', now: false },
 ]
 
 function About() {
@@ -265,19 +265,21 @@ function About() {
         <div className="zb52-about-grid">
           <div className="zb52-about-body zb-reveal">
             <p className="lead">
-              I&apos;m a final-year CS student at the University of Essex. Right now
-              I&apos;m interning at <em>Cloudflare</em> on the Foundation Engineering
-              team and running the tech as CTO at <em>Price Lantern</em>.
+              I&apos;m a second-year CS student at the University of Essex —
+              first-class, and top of my cohort. Right now I&apos;m interning as a
+              software engineer at <em>Cloudflare</em> on the Resilience team, and
+              running the tech as CTO at <em>Price Lantern</em>.
             </p>
             <p>
               Honestly, most of what I&apos;m any good at came from building things,
               not from lectures. I keep picking problems that are a little out of my
-              depth — a shell written in Go while I was still learning the language, a
-              chat analyzer that chews through a million messages with no server, an AI
-              harness that lets a model build its own tools. The degree&apos;s gone well
-              (96% in first year, then 80% and a Dean&apos;s List for Excellence spot in
-              second), but I&apos;d rather be judged on what I actually ship. Hand me
-              something real to build and I&apos;ll go deep on it until it&apos;s right.
+              depth — a Turkish news-bias analyzer I shipped solo in about three
+              weeks, an AI harness that lets a model write its own tools, a shell
+              built from scratch in Go. The degree&apos;s gone well — top of my cohort
+              two years running, a Dean&apos;s List for Excellence spot, first-class
+              marks (94 in Web App Programming) — but I&apos;d rather be judged on what
+              I actually ship. Hand me something real to build and I&apos;ll go deep
+              on it until it&apos;s right.
             </p>
           </div>
 
@@ -288,19 +290,19 @@ function About() {
             <dl className="facts">
               <div>
                 <dt>LOCATION</dt>
-                <dd>Essex, UK · GMT+0</dd>
+                <dd>Colchester, UK · GMT+0</dd>
               </div>
               <div>
                 <dt>DEGREE</dt>
-                <dd>BSc Computer Science</dd>
+                <dd>BSc CS · Exp. 2027</dd>
               </div>
               <div>
-                <dt>RESULTS</dt>
-                <dd>Y1 96% · Y2 80%</dd>
+                <dt>STANDING</dt>
+                <dd>First-Class · Top of Cohort</dd>
               </div>
               <div>
                 <dt>HONOURS</dt>
-                <dd>Dean&apos;s List · First Class</dd>
+                <dd>Dean&apos;s List for Excellence</dd>
               </div>
             </dl>
           </aside>
@@ -433,7 +435,7 @@ function Contact() {
 
         <footer className="zb52-footer zb-reveal">
           <span className="c">© 2026 SINA DILEK</span>
-          <span className="loc">ESSEX, UK · GMT+0 · BUILT BY HAND</span>
+          <span className="loc">COLCHESTER, UK · GMT+0 · BUILT BY HAND</span>
           <a className="totop" href="#top" data-cursor="active">
             <span className="ar">↑</span> BACK TO TOP
           </a>
