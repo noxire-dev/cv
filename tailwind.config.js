@@ -14,6 +14,7 @@ export default {
         'editorial': ['Cormorant Garamond', 'serif'],
         'archivo': ['Archivo Black', 'sans-serif'],
         'bebas': ['Bebas Neue', 'sans-serif'],
+        'jp': ['Noto Sans JP', 'sans-serif'],
       },
       animation: {
         'glitch': 'glitch 1s linear infinite',

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zen Brutalism — Design Sheet</title>
+  <meta name="description" content="Zen Brutalism — a dark-only design system fusing Japanese minimalism with industrial brutalism. By Sina Dilek." />
+  <meta name="color-scheme" content="dark" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,600..800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+JP:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0C0C0D; --ink-2: #131316; --ink-3: #191920;
+      --paper: #ECECE4; --grey: #93938C; --grey-dim: #55554F;
+      --line: #2A2A30; --line-2: #3E3E46;
+      --accent: #8F90C2; --accent-lo: rgba(143,144,194,0.14);
+      --display: 'Archivo', system-ui, sans-serif;
+      --body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, monospace;
+      --jp: 'Noto Sans JP', sans-serif;
+      --snap: 0.13s cubic-bezier(0.2, 0, 0, 1);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--ink); color: var(--paper); font-family: var(--body);
+      -webkit-font-smoothing: antialiased; overflow-x: hidden; line-height: 1.6; font-stretch: 125%;
+    }
+    ::selection { background: var(--accent); color: var(--ink); }
+    a { color: inherit; text-decoration: none; }
+
+    /* concrete noise */
+    .noise {
+      position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0.05; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+    /* custom raw cursor */
+    .cursor {
+      position: fixed; top: 0; left: 0; z-index: 999; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px;
+      border: 1.5px solid var(--paper); mix-blend-mode: difference; pointer-events: none; display: none;
+      transition: width var(--snap), height var(--snap), margin var(--snap), border-color var(--snap), background var(--snap);
+    }
+    body.cursor-on { cursor: none; }
+    body.cursor-on .cursor { display: block; }
+    .cursor.on { width: 34px; height: 34px; margin: -17px 0 0 -17px; border-color: var(--accent); background: var(--accent-lo); }
+
+    /* accent toggle */
+    .accents { position: fixed; right: clamp(16px,2vw,30px); bottom: clamp(16px,2vw,30px); z-index: 40;
+      display: flex; align-items: center; gap: 9px; padding: 9px 12px; background: rgba(12,12,13,0.72);
+      border: 1px solid var(--line); backdrop-filter: blur(9px); }
+    .accents .lbl { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.22em; color: var(--grey-dim); }
+    .accents button { width: 18px; height: 18px; border: 1.5px solid rgba(0,0,0,0.4); cursor: pointer; transition: transform var(--snap), box-shadow var(--snap); }
+    .accents button:hover { transform: translateY(-2px); }
+    .accents button.on { box-shadow: 0 0 0 2px var(--ink), 0 0 0 3.5px var(--paper); }
+
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 64px); }
+
+    /* masthead */
+    .mast { position: relative; z-index: 1; padding: clamp(40px,7vw,90px) 0 clamp(50px,8vw,110px); border-bottom: 1px solid var(--line); }
+    .mast .kick { display: inline-flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.26em; color: var(--grey); margin-bottom: 26px; }
+    .mast .kick .jp { color: var(--accent); font-family: var(--jp); letter-spacing: 0.1em; font-size: 13px; }
+    .mast h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.8rem, 11vw, 9rem); line-height: 0.82; letter-spacing: -0.04em; text-transform: uppercase; }
+    .mast h1 .b { color: transparent; -webkit-text-stroke: 1.6px var(--grey); }
+    .mast h1 .dot { color: var(--accent); -webkit-text-stroke: 0; }
+    .mast .def { margin-top: clamp(28px,4vw,44px); max-width: 60ch; font-size: clamp(1.05rem,1.5vw,1.35rem); line-height: 1.55; color: var(--grey); }
+    .mast .def em { font-style: normal; color: var(--ink); background: var(--accent); padding: 0.04em 0.16em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+    .mast .meta-row { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 34px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--grey-dim); }
+    .mast .meta-row b { color: var(--paper); font-weight: 400; }
+
+    /* section scaffold */
+    section.sec { position: relative; z-index: 1; padding: clamp(56px,9vw,120px) 0; border-bottom: 1px solid var(--line); }
+    .sec-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: clamp(36px,5vw,64px); }
+    .sec-head .t { display: inline-flex; align-items: baseline; gap: 14px; }
+    .sec-head .no { font-family: var(--mono); font-size: 12px; color: var(--grey-dim); }
+    .sec-head h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem,4.5vw,3.4rem); letter-spacing: -0.03em; text-transform: uppercase; }
+    .sec-head .jp { font-family: var(--jp); font-size: 13px; color: var(--accent); letter-spacing: 0.12em; }
+    .sec-note { max-width: 48ch; font-size: 0.98rem; line-height: 1.7; color: var(--grey); }
+
+    /* palette */
+    .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+    .sw { border: 2px solid var(--line); background: var(--ink-2); }
+    .sw .chip { height: 92px; border-bottom: 2px solid var(--line); }
+    .sw .info { padding: 14px 15px; display: flex; flex-direction: column; gap: 5px; }
+    .sw .name { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--paper); }
+    .sw .hex { font-family: var(--mono); font-size: 11px; color: var(--grey); text-transform: uppercase; }
+    .sw .role { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; color: var(--grey-dim); }
+    .accent-note { margin-top: 20px; display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--grey); }
+    .accent-note .dot { width: 12px; height: 12px; background: var(--accent); }
+
+    /* typography */
+    .type-grid { display: grid; gap: 22px; }
+    .type-card { border: 2px solid var(--line); background: var(--ink-2); padding: clamp(22px,3vw,38px); }
+    .type-card .tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em; color: var(--grey-dim); margin-bottom: 18px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .type-card .tag b { color: var(--accent); font-weight: 400; }
+    .specimen-display { font-family: var(--display); font-weight: 800; font-size: clamp(3rem,9vw,6.5rem); line-height: 0.85; letter-spacing: -0.03em; }
+    .specimen-body { font-family: var(--body); font-size: clamp(1rem,1.4vw,1.3rem); line-height: 1.7; color: var(--paper); max-width: 62ch; }
+    .specimen-mono { font-family: var(--mono); font-size: 14px; letter-spacing: 0.04em; color: var(--paper); line-height: 2; }
+    .specimen-mono .dim { color: var(--grey-dim); }
+    .bi-samples { display: flex; flex-wrap: wrap; gap: 12px 26px; margin-top: 8px; }
+    .bi { display: inline-flex; align-items: baseline; gap: 9px; }
+    .bi .jp { font-family: var(--jp); font-size: 13px; color: var(--accent); }
+    .bi .en { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; color: var(--grey); }
+
+    /* generic grid of principle cards */
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+    .pcard { border: 2px solid var(--line); background: var(--ink-2); padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .pcard .h { font-family: var(--display); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.01em; }
+    .pcard .d { font-size: 0.92rem; line-height: 1.6; color: var(--grey); }
+    .pcard .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--accent); }
+
+    /* components lab */
+    .lab { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+    .demo { border: 2px solid var(--line); background: var(--ink-2); padding: 26px; }
+    .demo > .caption { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--grey-dim); margin-bottom: 20px; display: block; }
+    .demo .row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+    .btn { display: inline-flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; color: var(--paper);
+      padding: 15px 24px; background: var(--ink); border: 2px solid var(--paper); box-shadow: 5px 5px 0 0 var(--line); cursor: pointer;
+      transition: transform var(--snap), box-shadow var(--snap), border-color var(--snap), background var(--snap); }
+    .btn .arw { transition: transform var(--snap); }
+    .btn:hover { transform: translate(-4px,-4px); box-shadow: 9px 9px 0 0 var(--accent); border-color: var(--accent); background: var(--ink-3); }
+    .btn:hover .arw { transform: translateX(5px); }
+    .btn.ghost { border-color: var(--line-2); color: var(--grey); box-shadow: 5px 5px 0 0 transparent; }
+    .btn.ghost:hover { color: var(--paper); border-color: var(--accent); box-shadow: 9px 9px 0 0 var(--accent); }
+
+    .plate { border: 2px solid var(--line); background: var(--ink); box-shadow: 5px 5px 0 0 rgba(0,0,0,0.4); padding: 22px; min-width: 200px;
+      transition: transform var(--snap), box-shadow var(--snap), border-color var(--snap), background var(--snap); }
+    .plate:hover { transform: translate(-4px,-4px); box-shadow: 10px 10px 0 0 var(--accent); border-color: var(--accent); background: var(--ink-3); }
+    .plate .pt { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--grey-dim); margin-bottom: 14px; }
+    .plate .pn { font-family: var(--display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; }
+    .plate .pd { font-size: 0.9rem; color: var(--grey); margin-top: 4px; }
+
+    .hl-demo { font-family: var(--display); font-weight: 700; font-size: clamp(1.4rem,3vw,2rem); line-height: 1.3; letter-spacing: -0.01em; }
+    .hl-demo em { font-style: normal; color: var(--ink); background: var(--accent); padding: 0.05em 0.18em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+    .badge { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; padding: 5px 10px; border: 1px solid var(--line-2); color: var(--grey); }
+    .badge.hot { color: var(--accent); border-color: var(--accent); }
+
+    .reg { border-top: 2px solid var(--line-2); }
+    .reg a { position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 20px; padding: 22px 14px; border-bottom: 2px solid var(--line); cursor: pointer;
+      transition: padding var(--snap), background var(--snap); }
+    .reg a::before { content: ''; position: absolute; left: 0; top: -2px; bottom: -2px; width: 3px; background: var(--accent); transform: scaleY(0); transition: transform var(--snap); }
+    .reg a:hover { background: var(--ink); padding-left: 22px; }
+    .reg a:hover::before { transform: scaleY(1); }
+    .reg .n { font-family: var(--mono); font-size: 12px; color: var(--grey-dim); align-self: start; padding-top: 4px; transition: color var(--snap); }
+    .reg a:hover .n { color: var(--accent); }
+    .reg .nm { font-family: var(--display); font-weight: 800; font-size: 1.6rem; letter-spacing: -0.02em; transition: color var(--snap); }
+    .reg a:hover .nm { color: var(--accent); }
+    .reg .br { font-size: 0.86rem; color: var(--grey); margin-top: 3px; }
+    .reg .ar { font-size: 16px; color: var(--grey-dim); transition: transform var(--snap), color var(--snap); }
+    .reg a:hover .ar { transform: translate(3px,-3px); color: var(--accent); }
+
+    .tick-box { position: relative; height: 120px; border: 1px solid var(--line); }
+    .tick { position: absolute; width: 10px; height: 10px; }
+    .tick::before, .tick::after { content: ''; position: absolute; background: var(--accent); }
+    .tick::before { width: 10px; height: 1.5px; top: 0; }
+    .tick::after { width: 1.5px; height: 10px; left: 0; }
+    .tick.tl { top: -1px; left: -1px; } .tick.tr { top: -1px; right: -1px; transform: scaleX(-1); }
+    .tick.bl { bottom: -1px; left: -1px; transform: scaleY(-1); } .tick.br { bottom: -1px; right: -1px; transform: scale(-1); }
+    .tick-box .lab { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; color: var(--grey-dim); }
+
+    .punch { display: flex; align-items: center; gap: 14px; color: var(--line-2); justify-content: center; padding: 10px 0; }
+    .punch .o { width: 9px; height: 9px; border: 2px solid var(--line-2); border-radius: 50%; }
+    .punch .l { flex: 1; max-width: 120px; height: 1px; background: var(--line); }
+
+    /* motion easing viz */
+    .ease-viz { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .ease-card { border: 2px solid var(--line); background: var(--ink-2); padding: 24px; }
+    .ease-card .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--accent); }
+    .ease-card .h { font-family: var(--display); font-weight: 700; font-size: 1.05rem; margin: 6px 0 4px; }
+    .ease-card .d { font-size: 0.88rem; color: var(--grey); line-height: 1.55; }
+
+    /* do / dont */
+    .dd { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .dd-col { border: 2px solid var(--line); background: var(--ink-2); padding: clamp(22px,3vw,34px); }
+    .dd-col.do { border-left: 3px solid var(--accent); }
+    .dd-col .h { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .dd-col.do .h { color: var(--accent); }
+    .dd-col.dont .h { color: var(--grey); }
+    .dd-col ul { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+    .dd-col li { font-size: 0.95rem; line-height: 1.5; color: var(--paper); padding-left: 22px; position: relative; }
+    .dd-col li::before { position: absolute; left: 0; font-family: var(--mono); font-size: 13px; }
+    .dd-col.do li::before { content: '+'; color: var(--accent); }
+    .dd-col.dont li::before { content: '×'; color: var(--grey-dim); }
+    .dd-col li b { color: var(--paper); }
+    .dd-col li span { color: var(--grey); }
+
+    /* AI prompt */
+    .prompt-box { border: 2px solid var(--line); background: var(--ink-2); box-shadow: 6px 6px 0 0 rgba(0,0,0,0.4); }
+    .prompt-bar { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 15px 18px; border-bottom: 2px solid var(--line); font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; color: var(--grey); }
+    .prompt-bar .t { display: inline-flex; align-items: center; gap: 9px; }
+    .prompt-bar .t .jp { font-family: var(--jp); color: var(--accent); font-size: 12px; }
+    .prompt-bar button { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; color: var(--paper); background: var(--ink); border: 1.5px solid var(--line-2); padding: 9px 18px; cursor: pointer; transition: border-color var(--snap), color var(--snap), box-shadow var(--snap), transform var(--snap); }
+    .prompt-bar button:hover { border-color: var(--accent); color: var(--accent); box-shadow: 4px 4px 0 0 var(--accent); transform: translate(-2px,-2px); }
+    .prompt-box pre { margin: 0; padding: clamp(18px,3vw,32px); font-family: var(--mono); font-size: 12px; line-height: 1.85; color: var(--paper); white-space: pre-wrap; word-break: break-word; max-height: 480px; overflow-y: auto; }
+    .prompt-box pre b { color: var(--accent); font-weight: 400; }
+
+    footer { position: relative; z-index: 1; padding: clamp(40px,6vw,70px) 0; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; color: var(--grey-dim); }
+    footer .a { color: #b4afa4; }
+
+    @media (max-width: 640px) {
+      .dd { grid-template-columns: 1fr; }
+      .reg a { grid-template-columns: auto 1fr; }
+      .reg .ar { grid-column: 1 / -1; justify-self: start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="cursor" id="cursor"></div>
+
+  <div class="accents" role="group" aria-label="Accent colour">
+    <span class="lbl">ACCENT</span>
+    <button data-hex="#8F90C2" class="on" style="background:#8F90C2" title="Iris"></button>
+    <button data-hex="#C86B53" style="background:#C86B53" title="Terracotta"></button>
+    <button data-hex="#7D8C6A" style="background:#7D8C6A" title="Wasabi"></button>
+  </div>
+
+  <div class="wrap">
+    <!-- MASTHEAD -->
+    <header class="mast">
+      <span class="kick"><span class="jp">禅</span>DESIGN SYSTEM · v1.0</span>
+      <h1>ZEN<br /><span class="b">BRUTAL</span><span class="dot">.</span></h1>
+      <p class="def">
+        A dark-only design language that forces <em>Japanese minimalism</em> —
+        restraint, negative space, a single gesture — through
+        <em>industrial brutalism</em>: raw structure, hard edges, an exposed grid.
+        Quiet, but built like a machine.
+      </p>
+      <div class="meta-row">
+        <span>MODE — <b>DARK ONLY</b></span>
+        <span>ACCENT — <b>ONE, SWAPPABLE</b></span>
+        <span>CORNERS — <b>90° ALWAYS</b></span>
+        <span>MOTION — <b>MECHANICAL</b></span>
+        <span>AUTHOR — <b>SINA DILEK</b></span>
+      </div>
+    </header>
+
+    <!-- 01 PRINCIPLE -->
+    <section class="sec">
+      <div class="sec-head">
+        <span class="t"><span class="no">01</span><span class="jp">理念</span><h2>Principle</h2></span>
+      </div>
+      <div class="cards">
+        <div class="pcard"><span class="k">間 · MA</span><span class="h">Negative space is structure</span><span class="d">Emptiness isn't leftover — it's placed. Give one idea a whole quadrant and let it breathe.</span></div>
+        <div class="pcard"><span class="k">構造 · STRUCTURE</span><span class="h">Expose the frame</span><span class="d">2px block borders, a 1px architectural frame, a faint 12-column grid. Show the skeleton, don't hide it.</span></div>
+        <div class="pcard"><span class="k">一 · ONE GESTURE</span><span class="h">Restraint over decoration</span><span class="d">One accent per block at rest. One kanji nod. One thing to remember per screen.</span></div>
+        <div class="pcard"><span class="k">機械 · MACHINE</span><span class="h">Nothing floats</span><span class="d">Motion snaps, steps and stamps. Shadows are hard and shift — they never blur.</span></div>
+      </div>
+    </section>
+
+    <!-- 02 PALETTE -->
+    <section class="sec">
+      <div class="sec-head">
+        <span class="t"><span class="no">02</span><span class="jp">色</span><h2>Palette</h2></span>
+        <span class="sec-note">Warm near-black concrete, off-white paper, charcoal structure, one live accent.</span>
+      </div>
+      <div class="swatches">
+        <div class="sw"><div class="chip" style="background:#0C0C0D"></div><div class="info"><span class="name">INK</span><span class="hex">#0C0C0D</span><span class="role">PAGE</span></div></div>
+        <div class="sw"><div class="chip" style="background:#131316"></div><div class="info"><span class="name">INK-2</span><span class="hex">#131316</span><span class="role">RAISED PANEL</span></div></div>
+        <div class="sw"><div class="chip" style="background:#191920"></div><div class="info"><span class="name">INK-3</span><span class="hex">#191920</span><span class="role">HOVER SURFACE</span></div></div>
+        <div class="sw"><div class="chip" style="background:#ECECE4"></div><div class="info"><span class="name">PAPER</span><span class="hex">#ECECE4</span><span class="role">PRIMARY TEXT</span></div></div>
+        <div class="sw"><div class="chip" style="background:#93938C"></div><div class="info"><span class="name">GREY</span><span class="hex">#93938C</span><span class="role">SECONDARY TEXT</span></div></div>
+        <div class="sw"><div class="chip" style="background:#55554F"></div><div class="info"><span class="name">GREY-DIM</span><span class="hex">#55554F</span><span class="role">META / LABELS</span></div></div>
+        <div class="sw"><div class="chip" style="background:#2A2A30"></div><div class="info"><span class="name">LINE</span><span class="hex">#2A2A30</span><span class="role">BORDERS / GRID</span></div></div>
+        <div class="sw"><div class="chip" style="background:#3E3E46"></div><div class="info"><span class="name">LINE-2</span><span class="hex">#3E3E46</span><span class="role">HOVER BORDER</span></div></div>
+        <div class="sw"><div class="chip" style="background:var(--accent)"></div><div class="info"><span class="name">ACCENT</span><span class="hex" id="accent-hex">#8F90C2</span><span class="role">THE ONE GESTURE</span></div></div>
+      </div>
+      <div class="accent-note"><span class="dot"></span>One accent hue at a time. Ships with three — <b style="color:var(--paper)">Iris · Terracotta · Wasabi</b> — swappable from a single token. Try the toggle, bottom-right.</div>
+    </section>
+
+    <!-- 03 TYPOGRAPHY -->
+    <section class="sec">
+      <div class="sec-head">
+        <span class="t"><span class="no">03</span><span class="jp">書体</span><h2>Type</h2></span>
+        <span class="sec-note">Three voices: a geometric display, a clean body, a machine mono — plus bilingual kanji labels.</span>
+      </div>
+      <div class="type-grid">
+        <div class="type-card">
+          <div class="tag"><span>DISPLAY — <b>ARCHIVO EXPANDED</b> · 700 / 800</span><span>HEADINGS · NAMES</span></div>
+          <div class="specimen-display">Aa &amp; ZEN.</div>
+        </div>
+        <div class="type-card">
+          <div class="tag"><span>BODY — <b>PLUS JAKARTA SANS</b> · 400–700</span><span>PROSE</span></div>
+          <p class="specimen-body">Honestly, most of what I'm any good at came from building things, not from lectures. Clean, legible, quietly confident — it stays out of the display type's way.</p>
+        </div>
+        <div class="type-card">
+          <div class="tag"><span>MONO — <b>IBM PLEX MONO</b> · 400–700</span><span>LABELS · DATA · CHROME</span></div>
+          <p class="specimen-mono">MODEL — SINA DILEK<br /><span class="dim">SERIAL</span> NX-2003-UK<br /><span class="dim">STATUS</span> OPERATIONAL</p>
+        </div>
+        <div class="type-card">
+          <div class="tag"><span>BILINGUAL — <b>NOTO SANS JP</b> + MONO</span><span>THE SIGNATURE LABEL</span></div>
+          <div class="bi-samples">
+            <span class="bi"><span class="jp">製品</span><span class="en">PROJECTS</span></span>
+            <span class="bi"><span class="jp">経歴</span><span class="en">WORK</span></span>
+            <span class="bi"><span class="jp">現在</span><span class="en">CURRENTLY</span></span>
+            <span class="bi"><span class="jp">連絡</span><span class="en">CONTACT</span></span>
+            <span class="bi"><span class="jp">仕事</span><span class="en">SELECTED WORK</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 STRUCTURE -->
+    <section class="sec">
+      <div class="sec-head">
+        <span class="t"><span class="no">04</span><span class="jp">構造</span><h2>Structure &amp; Space</h2></span>
+      </div>
+      <div class="cards">
+        <div class="pcard"><span class="k">EDGES</span><span class="h">90°, always</span><span class="d">No border-radius anywhere. Sharp corners are non-negotiable.</span></div>
+        <div class="pcard"><span class="k">BORDERS</span><span class="h">2px blocks · 1px frame</span><span class="d">Content blocks get heavy 2px borders; an outer 1px frame holds the page like a plate.</span></div>
+        <div class="pcard"><span class="k">GRID</span><span class="h">12 columns, whispered</span><span class="d">A faint exposed column grid under the content — structure you can just about see.</span></div>
+        <div class="pcard"><span class="k">RHYTHM</span><span class="h">Asymmetry &amp; Ma</span><span class="d">Anchor content off-centre; leave large deliberate voids. Balance by weight, not symmetry.</span></div>
+      </div>
+      <div class="lab" style="margin-top:18px">
+        <div class="demo"><span class="caption">CORNER REGISTRATION TICKS</span>
+          <div class="tick-box"><span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span><span class="lab">FRAME</span></div>
+        </div>
+        <div class="demo"><span class="caption">PUNCH DIVIDER</span>
+          <div style="display:flex;align-items:center;height:120px"><div class="punch" style="width:100%"><span class="o"></span><span class="l"></span><span class="o"></span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 MOTION -->
+    <section class="sec">
+      <div class="sec-head">
+        <span class="t"><span class="no">05</span><span class="jp">動き</span><h2>Motion</h2></span>
+        <span class="sec-note">Mechanical only. Hover the components below — everything snaps.</span>
+      </div>
+      <div class="ease-viz">
+        <div class="ease-card"><span class="k">--snap</span><div class="h">0.13s · cubic-bezier(.2,0,0,1)</div><div class="d">The one easing. Fast in, hard settle. Used on every hover and transition.</div></div>
+        <div class="ease-card"><span class="k">HARD SHADOW SHIFT</span><div class="h">translate(-4px,-4px)</div><div class="d">Elements lift up-left and grow a non-blurring accent shadow. Zero blur, ever.</div></div>
+        <div class="ease-card"><span class="k">REVEAL</span><div class="h">12px rise · staggered</div><div class="d">Sections rise on scroll with an 80ms stagger. Patient, then snaps into place.</div></div>
+        <div class="ease-card"><span class="k">FORBIDDEN</span><div class="h">No springs · floats · parallax</div><div class="d">Nothing bounces, drifts or lags. If it feels organic, it's wrong.</div></div>
+      </div>
+    </section>
+
+    <!-- 06 COMPONENTS -->
+    <section class="sec">
+      <div class="sec-head">
+        <span class="t"><span class="no">06</span><span class="jp">部品</span><h2>Components</h2></span>
+        <span class="sec-note">Live. Hover anything.</span>
+      </div>
+      <div class="lab">
+        <div class="demo"><span class="caption">BUTTONS — PRIMARY / GHOST</span>
+          <div class="row">
+            <button class="btn" data-cursor>VIEW WORK<span class="arw">→</span></button>
+            <button class="btn ghost" data-cursor>DOWNLOAD CV<span class="arw">↓</span></button>
+          </div>
+        </div>
+        <div class="demo"><span class="caption">PLATE / CARD</span>
+          <div class="plate" data-cursor><div class="pt"><span>PLT-001</span><span class="badge hot">LIVE</span></div><div class="pn">Tayf</div><div class="pd">Real-time news-bias analyzer.</div></div>
+        </div>
+        <div class="demo"><span class="caption">HIGHLIGHTER EMPHASIS — black text on accent</span>
+          <p class="hl-demo">Interning at <em>Cloudflare</em>, building <em>Zen Brutalism</em>.</p>
+        </div>
+        <div class="demo"><span class="caption">STATUS BADGES</span>
+          <div class="row">
+            <span class="badge hot">LIVE</span><span class="badge hot">ACTIVE</span><span class="badge">DEV</span><span class="badge">STABLE</span>
+          </div>
+        </div>
+        <div class="demo" style="grid-column:1/-1"><span class="caption">REGISTER ROW — the readable list</span>
+          <div class="reg">
+            <a data-cursor><span class="n">01</span><span><span class="nm">Tayf</span><div class="br">Reads how 144 outlets spin the same story.</div></span><span class="ar">↗</span></a>
+            <a data-cursor><span class="n">02</span><span><span class="nm">Toka</span><div class="br">An AI harness where the model writes its own tools.</div></span><span class="ar">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 DETAIL -->
+    <section class="sec">
+      <div class="sec-head">
+        <span class="t"><span class="no">07</span><span class="jp">質感</span><h2>Texture &amp; Detail</h2></span>
+      </div>
+      <div class="cards">
+        <div class="pcard"><span class="k">NOISE</span><span class="h">Concrete grain ≤ 5%</span><span class="d">A single static fractal-noise layer at ~5% overlay. Static only — it never animates.</span></div>
+        <div class="pcard"><span class="k">CURSOR</span><span class="h">Raw square, 1:1</span><span class="d">A crisp square that tracks the pointer with no lag and swells to a ring over anything interactive.</span></div>
+        <div class="pcard"><span class="k">LABELLING</span><span class="h">Plate IDs &amp; indices</span><span class="d">PLT-001, P/03, SEC-04 — machine-plate numbering as quiet texture.</span></div>
+        <div class="pcard"><span class="k">KANJI</span><span class="h">One nod per block</span><span class="d">A small kanji beside a mono label — the Japanese half of the fusion, used sparingly.</span></div>
+      </div>
+    </section>
+
+    <!-- 08 DO / DONT -->
+    <section class="sec">
+      <div class="sec-head">
+        <span class="t"><span class="no">08</span><span class="jp">規則</span><h2>Do / Don't</h2></span>
+      </div>
+      <div class="dd">
+        <div class="dd-col do">
+          <div class="h">DO</div>
+          <ul>
+            <li><b>Hard shadows that shift.</b> <span>Offset blocks 4px on hover, no blur.</span></li>
+            <li><b>One accent per block at rest.</b> <span>Let it earn attention.</span></li>
+            <li><b>Black text on the accent highlight.</b> <span>Full-height block, maximum legibility.</span></li>
+            <li><b>Massive padding &amp; Ma.</b> <span>Space is a design element.</span></li>
+            <li><b>Bilingual mono labels.</b> <span>Kanji + tracked caps.</span></li>
+            <li><b>Mechanical motion only.</b> <span>Snap, step, stamp.</span></li>
+          </ul>
+        </div>
+        <div class="dd-col dont">
+          <div class="h">DON'T</div>
+          <ul>
+            <li><b>No border-radius.</b> <span>Ever. Sharp corners only.</span></li>
+            <li><b>No animated grain, rust or grunge.</b> <span>Weight comes from borders, not textures.</span></li>
+            <li><b>No soft / floaty easing.</b> <span>No springs, no parallax, no drift.</span></li>
+            <li><b>No second accent colour.</b> <span>One hue at a time.</span></li>
+            <li><b>No white text on the highlight.</b> <span>Low contrast — use ink.</span></li>
+            <li><b>No coloured-text emphasis.</b> <span>Highlight the background instead.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 USE IT -->
+    <section class="sec">
+      <div class="sec-head">
+        <span class="t"><span class="no">09</span><span class="jp">指示</span><h2>Use It</h2></span>
+        <span class="sec-note">Copy this prompt into Claude, Cursor or any AI tool to build in Zen Brutalism. Free to use — a credit is appreciated.</span>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-bar">
+          <span class="t"><span class="jp">指示</span>AI PROMPT · ZEN BRUTALISM v1.0</span>
+          <button id="copyBtn" data-cursor>COPY</button>
+        </div>
+        <pre id="promptText">Design in "Zen Brutalism" — a dark-only design language that fuses Japanese minimalism with industrial brutalism. Apply every rule below.
+
+PALETTE (dark only, no light mode)
+• Page #0C0C0D (warm near-black concrete). Panels #131316. Hover surface #191920.
+• Text #ECECE4 (paper) primary, #93938C secondary, #55554F for meta/labels.
+• Borders &amp; grid lines #2A2A30 (#3E3E46 on hover).
+• ONE accent colour, used sparingly: #8F90C2 iris (or #C86B53 terracotta / #7D8C6A wasabi). Only one at a time.
+
+TYPOGRAPHY
+• Display / headings: a wide industrial grotesque — Archivo Expanded (font-stretch 125%). Huge, tight tracking, uppercase for names.
+• Body: Plus Jakarta Sans — clean, humanist.
+• Labels / data / chrome: IBM Plex Mono, wide letter-spacing, uppercase.
+• Signature: bilingual labels — a small kanji beside mono caps, e.g. "製品 PROJECTS", "現在 CURRENTLY".
+
+STRUCTURE &amp; SPACE
+• 90° corners only — never border-radius.
+• 2px borders on blocks; a 1px architectural frame around sections; optionally a faint exposed 12-column grid behind content.
+• Massive padding and deliberate negative space (Ma). Asymmetric, weight-balanced layouts — anchor content off-centre, leave large voids.
+
+MOTION (mechanical only)
+• One easing: cubic-bezier(0.2, 0, 0, 1), ~0.13s.
+• Hard, NON-BLURRING box-shadows that SHIFT on hover: translate the element -4px,-4px and grow an accent hard shadow (e.g. 9px 9px 0 accent). Never blur a shadow.
+• No springs, floats, parallax or organic motion.
+
+DETAILS
+• Static concrete noise overlay ≤5% opacity, never animated. No rust, no grunge.
+• A custom raw square cursor that tracks 1:1 and swells to a ring over interactive elements.
+• Machine-plate numbering as quiet texture: PLT-001, P/03, SEC-04.
+• Emphasis = highlighter: a solid accent block behind the words with DARK (#0C0C0D) text on top, like a marker. Never colour the text itself.
+• One accent element per block at rest. Restraint over decoration.
+
+Now build [describe your component or page], following this system faithfully.</pre>
+      </div>
+    </section>
+
+    <footer>
+      <span class="a">ZEN BRUTALISM · DESIGN SHEET v1.0</span>
+      <span>SINA DILEK · COLCHESTER, UK — DESIGNED &amp; BUILT BY HAND · © 2026</span>
+    </footer>
+  </div>
+
+  <script>
+    // accent toggle
+    (function () {
+      function hexToRgba(h, a) {
+        var r = parseInt(h.slice(1,3),16), g = parseInt(h.slice(3,5),16), b = parseInt(h.slice(5,7),16);
+        return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+      }
+      var root = document.documentElement, hexLabel = document.getElementById('accent-hex');
+      document.querySelectorAll('.accents button').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var hex = btn.getAttribute('data-hex');
+          root.style.setProperty('--accent', hex);
+          root.style.setProperty('--accent-lo', hexToRgba(hex, 0.14));
+          if (hexLabel) hexLabel.textContent = hex.toUpperCase();
+          document.querySelectorAll('.accents button').forEach(function (b) { b.classList.remove('on'); });
+          btn.classList.add('on');
+        });
+      });
+    })();
+    // custom raw cursor
+    (function () {
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      var dot = document.getElementById('cursor'); if (!dot) return;
+      document.body.classList.add('cursor-on');
+      var raf = 0;
+      window.addEventListener('mousemove', function (e) {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function () { dot.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)'; });
+      });
+      window.addEventListener('mouseover', function (e) {
+        dot.classList.toggle('on', !!(e.target.closest('[data-cursor], a, button')));
+      });
+    })();
+    // copy prompt
+    (function () {
+      var btn = document.getElementById('copyBtn'), src = document.getElementById('promptText');
+      if (!btn || !src) return;
+      btn.addEventListener('click', function () {
+        var text = src.innerText;
+        var done = function () { btn.textContent = 'COPIED ✓'; setTimeout(function () { btn.textContent = 'COPY'; }, 1600); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, done);
+        } else {
+          var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
