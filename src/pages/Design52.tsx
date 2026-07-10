@@ -18,7 +18,7 @@ const FOCUS = [
 ]
 
 const PROJECTS = [
-  { id: 'tayf', name: 'Tayf', glyph: '◧', brief: 'A "Ground News" for Turkey — clusters 144 outlets by story in real time and surfaces the blind spots each side underreports. Built solo in ~3.5 weeks.', stack: ['Next.js 16', 'React 19', 'Supabase'], year: '2026', status: 'LIVE', link: 'https://tayfhaber.com' },
+  { id: 'tayf', name: 'Tayf', glyph: '◧', brief: 'A "Ground News" for Turkey — clusters 144 outlets by story in real time and surfaces the blind spots each side underreports.', stack: ['Next.js 16', 'React 19', 'Supabase'], year: '2026', status: 'LIVE', link: 'https://tayfhaber.com' },
   { id: 'toka', name: 'Toka', glyph: '◈', brief: 'Hands an AI model a REPL and lets it write its own tools — instead of cramming every task into mine.', stack: ['TypeScript', 'Claude Agent SDK'], year: '2026', status: 'DEV', link: 'https://github.com/noxire-dev/toka' },
   { id: 'pookie', name: 'Pookie', glyph: '💬', brief: 'Throws a million WhatsApp messages at your browser and analyzes every one locally — nothing ever leaves your device.', stack: ['React', 'TypeScript', 'Web Workers'], year: '2026', status: 'LIVE', link: 'https://pookie.sh' },
   { id: 'lumiko', name: 'Lumiko', glyph: '❋', brief: 'Points Claude at a repo and writes the docs you keep putting off — README, architecture, API, the lot.', stack: ['TypeScript', 'Claude', 'CLI'], year: '2026', status: 'STABLE', link: 'https://github.com/mirako-studio/lumiko' },
@@ -183,7 +183,7 @@ function Hero({ clock }: { clock: string }) {
             <p className="zb52-bio zb-in" style={{ animationDelay: '.34s' }}>
               Second-year Computer Science student at the University of Essex —
               First-Class, top of cohort — currently a software engineer intern at
-              <em>Cloudflare</em> (Resilience, Foundational Engineering) and CTO at
+              <em>Cloudflare</em> (Foundational Engineering) and CTO at
               <em>Price Lantern</em>. I build backend systems, data pipelines, and
               developer tools — engineered to ship, not to demo.
             </p>
@@ -242,7 +242,7 @@ const ROLES = [
   {
     y: '2026',
     role: 'Software Engineer Intern',
-    org: 'Cloudflare · Resilience (Foundational Eng.) · London',
+    org: 'Cloudflare · Foundational Engineering · London',
     now: true,
   },
   { y: '2025—', role: 'Chief Technology Officer', org: 'Price Lantern · Pre-seed AI', now: false },
@@ -267,14 +267,14 @@ function About() {
             <p className="lead">
               I&apos;m a second-year CS student at the University of Essex —
               first-class, and top of my cohort. Right now I&apos;m interning as a
-              software engineer at <em>Cloudflare</em> on the Resilience team, and
-              running the tech as CTO at <em>Price Lantern</em>.
+              software engineer at <em>Cloudflare</em> (Foundational Engineering),
+              and running the tech as CTO at <em>Price Lantern</em>.
             </p>
             <p>
               Honestly, most of what I&apos;m any good at came from building things,
               not from lectures. I keep picking problems that are a little out of my
-              depth — a Turkish news-bias analyzer I shipped solo in about three
-              weeks, an AI harness that lets a model write its own tools, a shell
+              depth — a Turkish news-bias analyzer that clusters 144 outlets by
+              story, an AI harness that lets a model write its own tools, a shell
               built from scratch in Go. The degree&apos;s gone well — top of my cohort
               two years running, a Dean&apos;s List for Excellence spot, first-class
               marks (94 in Web App Programming) — but I&apos;d rather be judged on what
