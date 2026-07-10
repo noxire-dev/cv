@@ -279,11 +279,12 @@ function About() {
               not from lectures. I keep picking problems that are a little out of my
               depth — a Turkish news-bias analyzer that clusters 144 outlets by
               story, an AI harness that lets a model write its own tools, a shell
-              built from scratch in Go. The degree&apos;s gone well — top of my cohort
-              two years running, a Dean&apos;s List for Excellence spot, first-class
-              marks (94 in Web App Programming) — but I&apos;d rather be judged on what
-              I actually ship. Hand me something real to build and I&apos;ll go deep
-              on it until it&apos;s right.
+              built from scratch in Go. The degree&apos;s gone well — I set my
+              university&apos;s record for the highest first-year grade, I&apos;ve been
+              top of my cohort two years running, and I&apos;m on the Dean&apos;s List
+              for Excellence — but I&apos;d rather be judged on what I actually ship.
+              Hand me something real to build and I&apos;ll go deep on it until
+              it&apos;s right.
             </p>
           </div>
 
@@ -299,6 +300,10 @@ function About() {
               <div>
                 <dt>DEGREE</dt>
                 <dd>BSc CS · Exp. 2027</dd>
+              </div>
+              <div>
+                <dt>RECORD</dt>
+                <dd>Highest 1st-Year Grade</dd>
               </div>
               <div>
                 <dt>STANDING</dt>
